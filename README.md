@@ -1,7 +1,7 @@
 RAML Tools library
 ==================
 
-This library wraps [raml-parser-2]("https://github.com/raml-org/raml-java-parser") to make it more easily used in HMRC projects.
+This library wraps `raml-parser-2` to make it more easily used in HMRC projects.
 
 Code Coverage
 -------------
