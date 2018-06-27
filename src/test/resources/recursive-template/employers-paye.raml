@@ -1,0 +1,28 @@
+#%RAML 1.0
+
+title: Employers PAYE Service
+version: 1.0
+baseUri: http://employers-paye.service
+mediaType: application/json
+/:
+  get:
+    responses:
+      200: 
+        body:
+  /{empRef}:
+    get:
+      responses:
+        200:
+          body:
+
+    /{taxYear}:
+      get:
+        responses:
+          200:
+            body:
+
+      /charges:
+        get:
+          responses:
+            200:
+              body:

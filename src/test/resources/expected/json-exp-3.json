@@ -1,0 +1,98 @@
+[
+  {
+    "uriPattern" : "/{empRef}/{taxYear}",
+    "endpointName": "Say Hello",
+    "method" : "GET",
+    "authType" : "NONE",
+    "throttlingTier" : "UNLIMITED"
+  },
+  {
+    "uriPattern" : "/{empRef}/{taxYear}/charges",
+    "endpointName": "Say Hello",
+    "method" : "GET",
+    "authType" : "NONE",
+    "throttlingTier" : "UNLIMITED"
+  },
+  {
+    "uriPattern" : "/{empRef}/{other_thing}/humph",
+    "endpointName": "Say Hello",
+    "method" : "POST",
+    "authType" : "NONE",
+    "throttlingTier" : "UNLIMITED"
+  },
+  {
+    "uriPattern" : "/docs/to_read/now/favorites",
+    "endpointName": "Say Hello",
+    "method" : "GET",
+    "authType" : "NONE",
+    "throttlingTier" : "UNLIMITED"
+  },
+  {
+    "uriPattern" : "/docs/to_read/now/favorites",
+    "endpointName": "Say Hello",
+    "method" : "DELETE",
+    "authType" : "NONE",
+    "throttlingTier" : "BOB"
+  },
+  {
+    "uriPattern" : "/docs/to_read/now/backburner",
+    "endpointName": "Say Hello",
+    "method" : "GET",
+    "authType" : "NONE",
+    "throttlingTier" : "UNLIMITED",
+    "queryParameters": [
+      {"name": "name", "required": true},
+      {"name": "description", "required": false}
+    ]
+  },
+  {
+    "uriPattern" : "/docs/to_read/now/backburner",
+    "endpointName": "Say Hello",
+    "method" : "DELETE",
+    "authType" : "USER",
+    "scope": "delete:backburner",
+    "throttlingTier" : "UNLIMITED"
+  },
+  {
+    "uriPattern" : "/docs/to_read/later/important",
+    "endpointName": "Say Hello",
+    "method" : "GET",
+    "authType" : "NONE",
+    "throttlingTier" : "UNLIMITED"
+  },
+  {
+    "uriPattern" : "/docs/to_read/later/meh",
+    "endpointName": "Say Hello",
+    "method" : "GET",
+    "authType" : "NONE",
+    "throttlingTier" : "UNLIMITED"
+  },
+  {
+    "uriPattern" : "/docs/archive/2014",
+    "endpointName": "Say Hello",
+    "method" : "GET",
+    "authType" : "NONE",
+    "throttlingTier" : "UNLIMITED"
+  },
+  {
+    "uriPattern" : "/docs/archive/2014",
+    "endpointName": "Say Hello",
+    "method" : "POST",
+    "authType" : "NONE",
+    "throttlingTier" : "UNLIMITED"
+  },
+  {
+    "uriPattern" : "/docs/archive/2015",
+    "endpointName": "Say Hello",
+    "method" : "GET",
+    "authType" : "NONE",
+    "throttlingTier" : "UNLIMITED"
+  },
+  {
+    "uriPattern" : "/docs/archive/2015",
+    "endpointName": "Say Hello",
+    "method" : "POST",
+    "authType" : "NONE",
+    "throttlingTier" : "UNLIMITED"
+  }
+]

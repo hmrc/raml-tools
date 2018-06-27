@@ -1,0 +1,76 @@
+#%RAML 1.0
+
+title: Employers PAYE Service
+version: 1.0
+baseUri: http://employers-paye.service
+mediaType: application/json
+
+annotationTypes:
+  throttlingTier:
+  scope:
+
+securitySchemes:
+  oauth_2_0:
+    type: OAuth 2.0
+    settings:
+      authorizationUri: https://api.service.hmrc.gov.uk/oauth/authorize
+      accessTokenUri: https://api.service.hmrc.gov.uk/oauth/token
+      authorizationGrants: [ authorization_code, client_credentials ]
+      scopes:
+/test:
+    /{empRef}:
+      /{taxYear}:
+        get:
+          displayName: Say Hello
+        /charges:
+          get:
+            displayName: Say Hello
+      /{other_thing}:
+        /humph:
+          post:
+            displayName: Say Hello
+    /docs:
+      /to_read:
+        /now:
+          /favorites:
+            get:
+              displayName: Say Hello
+            delete:
+              (throttlingTier): BOB
+              displayName: Say Hello
+          /backburner:
+            get:
+              displayName: Say Hello
+              queryParameters:
+                name:
+                  description: The name to greet
+                  type: string
+                  example: Bob
+                  required: true
+                description:
+                  description: The description of the person to greet
+                  type: string
+                  example: Some guy
+                  required: false
+            delete:
+              (scope): "delete:backburner"
+              displayName: Say Hello
+              securedBy: [ oauth_2_0: { scopes: [ "delete:backburner" ] } ]
+        /later:
+          /important:
+            get:
+              displayName: Say Hello
+          /meh:
+            get:
+              displayName: Say Hello
+      /archive:
+        /2014:
+            get:
+              displayName: Say Hello
+            post:
+              displayName: Say Hello
+        /2015:
+            get:
+              displayName: Say Hello
+            post:
+              displayName: Say Hello

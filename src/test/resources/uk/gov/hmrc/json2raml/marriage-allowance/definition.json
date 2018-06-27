@@ -1,0 +1,66 @@
+{
+  "scopes":[
+    {
+      "key":"read:marriage-allowance",
+      "name":"access marriage allowance information",
+      "description":"Access Marriage Allowance status and eligibility"
+    }
+  ],
+  "api":{
+    "name":"Marriage Allowance",
+    "description":"The Marriage Allowance API provides information about whether someone is claiming Marriage Allowance and checks eligibility to claim Marriage Allowance.",
+    "context":"marriage-allowance",
+    "versions":[
+      {
+        "version":"1.0",
+        "status":"PUBLISHED",
+        "endpoints":[
+          {
+            "uriPattern":"/sa/{utr}/status",
+            "endpointName":"Fetch Marriage Allowance Status",
+            "method":"GET",
+            "authType":"USER",
+            "throttlingTier":"UNLIMITED",
+            "scope":"read:marriage-allowance",
+            "queryParameters": [
+              {
+                "name": "taxYear",
+                "required": true
+              }
+            ]
+          },
+          {
+            "uriPattern":"/sa/{utr}/eligibility",
+            "endpointName":"Check Marriage Allowance Eligibility",
+            "method":"GET",
+            "authType":"USER",
+            "throttlingTier":"UNLIMITED",
+            "scope":"read:marriage-allowance",
+            "queryParameters": [
+              {
+                "name": "nino",
+                "required": true
+              },
+              {
+                "name": "firstname",
+                "required": true
+              },
+              {
+                "name": "surname",
+                "required": true
+              },
+              {
+                "name": "dateOfBirth",
+                "required": true
+              },
+              {
+                "name": "taxYear",
+                "required": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,176 @@
+<endpoint>
+    <name>Fetch Tax Years for Employer Reference</name>
+    <description>This endpoint fetches a list of the Tax Years available for the provided Employer Reference.</description>
+    <section id="resource">
+        <title>Resource</title>
+        <resource>GET /employers-paye/{empRef}</resource>
+    </section>
+    <section id="path-parameters">
+        <title>Path Parameters</title>
+        <table>
+            <headings>
+                <cell>Name</cell>
+                <cell>Type</cell>
+                <cell>Example</cell>
+                <cell>Description</cell>
+            </headings>
+            <rows>
+                <row>
+                    <cell>
+                        <code>empRef</code>
+                    </cell>
+                    <cell>
+                        <code>String</code>
+                    </cell>
+                    <cell>
+                        <code>125/LS00015</code>
+                    </cell>
+                    <cell>The Employer Reference consists of Tax Office Number and Tax Office Reference, in format (Tax
+                        Office Number)/(Tax Office Reference). Note that the empRef must be url encoded, for example,
+                        125%2FLS00015
+                    </cell>
+                </row>
+            </rows>
+        </table>
+    </section>
+    <section id="authorisation">
+        <title>Authorisation</title>
+        <authorisation>
+            <type>USER</type>
+            <scope>read:employers-paye</scope>
+        </authorisation>
+    </section>
+    <section id="content-types">
+        <title>Accept Header</title>
+        <list>
+            <item>
+                <code>application/vnd.hmrc.1.0+json</code>
+            </item>
+        </list>
+    </section>
+    <section id="sample-response">
+        <title>Response</title>
+        <httpStatus>200 (OK)</httpStatus>
+        <json>
+            <![CDATA[
+{
+  "_links": {
+    "self": {
+      "href": "https://service-hostname/employers-paye/sandbox/100%2F1"
+    },
+    "2014-15": {
+      "href": "https://service-hostname/employers-paye/100%2F1/2014-15"
+    }
+  }
+}
+            ]]>
+        </json>
+    </section>
+    <section id="response-fields">
+        <title>Response Fields</title>
+        Fetch Tax Years for Employer Reference returns a _links field that contains a mapping with
+        Tax Years as keys and an object holding the href to that Tax Year as the value.
+    </section>
+    <section id="error-responses">
+        <title>Error Scenarios</title>
+        <table>
+            <headings>
+                <cell>Error Scenario</cell>
+                <cell>HTTP Status</cell>
+                <cell>Error Code</cell>
+                <cell>message</cell>
+            </headings>
+            <rows>
+                <row>
+                    <cell>
+                        <code>Bad Request</code>
+                    </cell>
+                    <cell>
+                        <code>400 (Bad Request)</code>
+                    </cell>
+                    <cell>
+                        <code>BAD_REQUEST</code>
+                    </cell>
+                    <cell>
+                        <code>Bad Request</code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>Unauthorized</code>
+                    </cell>
+                    <cell>
+                        <code>401 (UNAUTHORIZED)</code>
+                    </cell>
+                    <cell>
+                        <code>INVALID_CREDENTIALS</code>
+                    </cell>
+                    <cell>
+                        <code>Invalid Authentication information provided</code>
+                    </cell>
+                </row>
+                
+                <row>
+                    <cell>
+                        <code>Resource Not Found</code>
+                    </cell>
+                    <cell>
+                        <code>404 (Not Found)</code>
+                    </cell>
+                    <cell>
+                        <code>NOT_FOUND</code>
+                    </cell>
+                    <cell>
+                        <code>Resource was not found</code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>Accept header invalid</code>
+                    </cell>
+                    <cell>
+                        <code>406 (Not Acceptable)</code>
+                    </cell>
+                    <cell>
+                        <code>ACCEPT_HEADER_INVALID</code>
+                    </cell>
+                    <cell>
+                        <code>The accept header is missing or invalid</code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>Internal Server Error</code>
+                    </cell>
+                    <cell>
+                        <code>500 (Internal Server Error)</code>
+                    </cell>
+                    <cell>
+                        <code>INTERNAL_SERVER_ERROR</code>
+                    </cell>
+                    <cell>
+                        <code>Internal server error</code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>EmpRef invalid</code>
+                    </cell>
+                    <cell>
+                        <code>400 (Bad Request)</code>
+                    </cell>
+                    <cell>
+                        <code>ERROR_EMP_REF_INVALID</code>
+                    </cell>
+                    <cell>
+                        <code>EmpRef requires two identifiers separated by a slash</code>
+                    </cell>
+                </row>
+            </rows>
+        </table>
+    </section>
+    <section id="sandbox-data">
+        <title>Sandbox Data</title>
+        The sandbox version of this endpoint returns the Tax Years for the provided Employer Reference used by the sandbox.
+    </section>
+</endpoint>

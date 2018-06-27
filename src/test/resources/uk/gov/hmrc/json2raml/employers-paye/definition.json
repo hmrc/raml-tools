@@ -1,0 +1,86 @@
+{
+  "scopes": [
+    {
+      "key": "read:employers-paye",
+      "name": "access employer PAYE payments and liability information",
+      "description": "Access employer PAYE payments and liability information for a particular tax year"
+    }
+  ],
+  "api": {
+    "name": "Employers PAYE",
+    "description": "The Employers PAYE API provides information related to payments and liabilities for an employer in a given tax year.",
+    "context": "employers-paye",
+    "versions": [
+      {
+        "version": "1.0",
+        "status": "PUBLISHED",
+        "endpoints": [
+          {
+            "uriPattern": "/",
+            "endpointName": "Fetch Employer References",
+            "method": "GET",
+            "authType": "USER",
+            "throttlingTier": "UNLIMITED",
+            "scope": "read:employers-paye"
+          },
+          {
+            "uriPattern": "/{empRef}",
+            "endpointName": "Fetch Tax Years for Employer Reference",
+            "method": "GET",
+            "authType": "USER",
+            "throttlingTier": "UNLIMITED",
+            "scope": "read:employers-paye"
+          },
+          {
+            "uriPattern": "/{empRef}/{taxYear}",
+            "endpointName": "Fetch Services for Employer Reference and Tax Year",
+            "method": "GET",
+            "authType": "USER",
+            "throttlingTier": "UNLIMITED",
+            "scope": "read:employers-paye"
+          },
+          {
+            "uriPattern": "/{empRef}/{taxYear}/charges",
+            "endpointName": "Fetch Employer Charges",
+            "method": "GET",
+            "authType": "USER",
+            "throttlingTier": "UNLIMITED",
+            "scope": "read:employers-paye"
+          },
+          {
+            "uriPattern": "/{empRef}/{taxYear}/credits",
+            "endpointName": "Fetch Employer Credits",
+            "method": "GET",
+            "authType": "USER",
+            "throttlingTier": "UNLIMITED",
+            "scope": "read:employers-paye"
+          },
+          {
+            "uriPattern": "/{empRef}/{taxYear}/interest",
+            "endpointName": "Fetch Employer Interest",
+            "method": "GET",
+            "authType": "USER",
+            "throttlingTier": "UNLIMITED",
+            "scope": "read:employers-paye"
+          },
+          {
+            "uriPattern": "/{empRef}/{taxYear}/payments",
+            "endpointName": "Fetch Employer Payments",
+            "method": "GET",
+            "authType": "USER",
+            "throttlingTier": "UNLIMITED",
+            "scope": "read:employers-paye"
+          },
+          {
+            "uriPattern": "/{empRef}/{taxYear}/penalties",
+            "endpointName": "Fetch Employer Penalties",
+            "method": "GET",
+            "authType": "USER",
+            "throttlingTier": "UNLIMITED",
+            "scope": "read:employers-paye"
+          }
+        ]
+      }
+    ]
+  }
+}

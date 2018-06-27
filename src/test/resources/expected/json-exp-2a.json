@@ -1,0 +1,15 @@
+[
+  {
+    "uriPattern" : "/hello",
+    "endpointName": "Say Hello",
+    "method" : "GET",
+    "authType" : "NONE",
+    "throttlingTier" : "UNLIMITED",
+    "queryParameters": [
+      {
+        "name": "name",
+        "required": true
+      }
+    ]
+  }
+]

@@ -1,0 +1,43 @@
+#%RAML 1.0
+---
+
+title: Example Service
+version: 1.0
+protocols: [ HTTPS ]
+baseUri: http://example.service
+
+documentation:
+ - title: Overview
+   content: !include docs/overview.md
+ - title: Versioning
+   content: !include https://developer.service.hmrc.gov.uk/api-documentation/assets/common/docs/versioning.md
+ - title: Errors
+   content: !include https://developer.service.hmrc.gov.uk/api-documentation/assets/common/docs/errors.md
+
+mediaType: [ application/json, application/hal+json ]
+
+uses:
+  sec: https://developer.service.hmrc.gov.uk/api-documentation/assets/common/modules/securitySchemes.raml
+  headers: https://developer.service.hmrc.gov.uk/api-documentation/assets/common/modules/headers.raml
+  annotations: https://developer.service.hmrc.gov.uk/api-documentation/assets/common/modules/annotations.raml
+  types: https://developer.service.hmrc.gov.uk/api-documentation/assets/common/modules/types.raml
+
+/marriage-allowance/{utr}:
+  uriParameters:
+    utr:
+      description: The 10 digit SA UTR for the individual.
+      type: string
+      example: "2234567890"
+  get:
+    displayName: Fetch marriage allowance status
+    description: This end point returns whether the individual currently has Marriage Allowance for the given tax year.
+    is: [headers.acceptHeader]
+    (annotations.scope): "read:marriage-allowance"
+    securedBy: [ sec.oauth_2_0: { scopes: [ "read:marriage-allowance" ] } ]
+    responses:
+      200:
+        body:
+          application/json:
+            examples:
+              example-1:
+                value: !include examples/fetch-marriage-allowance-status-example-1.json

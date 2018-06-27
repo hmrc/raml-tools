@@ -1,0 +1,77 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"definitions": {
+		"currency" : {
+			"type": "string",
+			"pattern": "^[A-Z]{3}$",
+			"description": "ISO 4217:2008's three-letter alphabetic currency code ( See http://www.iso.org/iso/home/standards/currency_codes.htm )"
+		},
+		"carrierCode" : {
+			"type": "string",
+			"pattern": "^[0-9A-Z]{2}$",
+			"description": "IATA airline designator ( See https://www.iata.org/about/members/Pages/airline-list.aspx?All=true )"
+		},
+		"flightNumber" : {
+			"type": "integer",
+			"minimum": 1,
+			"maximum": 9999,
+			"description": "IATA flight number ( See http://www.iata.org/publications/Pages/SSIM.aspx )"
+		},
+		"locationIdentifier" : {
+			"type": "string",
+			"pattern": "^[A-Z]{3}$",
+			"description": "IATA location identifier ( See http://www.iata.org/publications/Pages/coding.aspx )"
+		},
+		"price": {
+			"type": "object",
+			"properties": {
+				"amount" : {
+					"type": "number",
+					"description": "The amount. Negative numbers are allowed for discount cases"
+				},
+				"currency" : { "$ref": "#/definitions/currency" }
+			},
+			"required" : [ "amount", "currency" ],
+			"additionalProperties": false
+		},
+		"segmentIdentifier": {
+			"type": "object",
+			"properties": {
+				"marketingCarrier" : { "$ref": "#/definitions/carrierCode" },
+				"flightNumber" : { "$ref": "#/definitions/flightNumber" },
+				"departureDate" : {
+					"type": "string",
+					"format": "date",
+					"description": "The scheduled departure date"
+				},
+				"originAirport" : { "$ref": "#/definitions/locationIdentifier" },
+				"destinationAirport" : { "$ref": "#/definitions/locationIdentifier" }
+			},
+			"required" : [ "marketingCarrier", "flightNumber", "departureDate", "originAirport", "destinationAirport" ],
+			"additionalProperties": false
+		},
+		"link" : {
+			"type": "object",
+			"properties": {
+				"href" : {
+					"type": "string",
+					"format": "uri",
+					"description": "The link"
+				},
+				"rel" : {
+					"type": "string",
+					"description": "The link's description : self, ..."
+				}
+			},
+			"required" : [ "href", "rel" ],
+			"patternProperties": {
+				"^type$|^title$": { "type": "string" },
+				"^rank$": { 
+					"type": "integer",
+					"minimum": 1
+				}
+			},
+			"additionalProperties": false
+		}
+	}
+}

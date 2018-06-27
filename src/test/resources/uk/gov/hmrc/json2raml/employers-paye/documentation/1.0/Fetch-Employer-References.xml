@@ -1,0 +1,164 @@
+<endpoint>
+    <name>Fetch Employer References</name>
+    <description>
+        This endpoint fetches a list of the Employer References that the
+        user of the API is allowed to access.
+    </description>
+    <section id="resource">
+        <title>Resource</title>
+        <resource>GET /employers-paye</resource>
+    </section>
+    <section id="authorisation">
+        <title>Authorisation</title>
+        <authorisation>
+            <type>USER</type>
+            <scope>read:employers-paye</scope>
+        </authorisation>
+    </section>
+    <section id="content-types">
+        <title>Accept Header</title>
+        <list>
+            <item>
+                <code>application/vnd.hmrc.1.0+json</code>
+            </item>
+        </list>
+    </section>
+    <section id="sample-response">
+        <title>Response</title>
+        <httpStatus>200 (OK)</httpStatus>
+        <json>
+            <![CDATA[
+{
+  "_links": {
+    "self": {
+      "href": "https://service-hostname/employers-paye/sandbox"
+    },
+    "100/1": {
+      "href": "https://service-hostname/employers-paye/sandbox/100%2F1"
+    },
+    "111/1": {
+      "href": "https://service-hostname/employers-paye/sandbox/111%2F1"
+    },
+    "000/0": {
+      "href": "https://service-hostname/employers-paye/sandbox/000%2F0"
+    },
+    "123/1": {
+      "href": "https://service-hostname/employers-paye/sandbox/123%2F1"
+    },
+    "999/9": {
+      "href": "https://service-hostname/employers-paye/sandbox/999%2F9"
+    },
+    "222/2": {
+      "href": "https://service-hostname/employers-paye/sandbox/222%2F2"
+    },
+    "666/6": {
+      "href": "https://service-hostname/employers-paye/sandbox/666%2F6"
+    },
+    "127/2FLS1000": {
+      "href": "https://service-hostname/employers-paye/sandbox/127%2F2FLS1000"
+    },
+    "125/LS00015": {
+      "href": "https://service-hostname/employers-paye/sandbox/125%2FLS00015"
+    },
+    "204/0": {
+      "href": "https://service-hostname/employers-paye/sandbox/204%2F0"
+    }
+  }
+}
+            ]]>
+        </json>
+        </section>
+    <section id="response-fields">
+        <title>Response Fields</title>
+        Fetch Employer References returns a _links field that contains a mapping with
+        Employer References as keys and an object holding the href to that Employer Reference as the value.
+    </section>
+    <section id="error-responses">
+        <title>Error Scenarios</title>
+        <table>
+            <headings>
+                <cell>Error Scenario</cell>
+                <cell>HTTP Status</cell>
+                <cell>Error Code</cell>
+                <cell>message</cell>
+            </headings>
+            <rows>
+                <row>
+                    <cell>
+                        <code>Bad Request</code>
+                    </cell>
+                    <cell>
+                        <code>400 (Bad Request)</code>
+                    </cell>
+                    <cell>
+                        <code>BAD_REQUEST</code>
+                    </cell>
+                    <cell>
+                        <code>Bad Request</code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>Unauthorized</code>
+                    </cell>
+                    <cell>
+                        <code>401 (UNAUTHORIZED)</code>
+                    </cell>
+                    <cell>
+                        <code>INVALID_CREDENTIALS</code>
+                    </cell>
+                    <cell>
+                        <code>Invalid Authentication information provided</code>
+                    </cell>
+                </row>
+
+                <row>
+                    <cell>
+                        <code>Resource Not Found</code>
+                    </cell>
+                    <cell>
+                        <code>404 (Not Found)</code>
+                    </cell>
+                    <cell>
+                        <code>NOT_FOUND</code>
+                    </cell>
+                    <cell>
+                        <code>Resource was not found</code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>Accept header invalid</code>
+                    </cell>
+                    <cell>
+                        <code>406 (Not Acceptable)</code>
+                    </cell>
+                    <cell>
+                        <code>ACCEPT_HEADER_INVALID</code>
+                    </cell>
+                    <cell>
+                        <code>The accept header is missing or invalid</code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>Internal Server Error</code>
+                    </cell>
+                    <cell>
+                        <code>500 (Internal Server Error)</code>
+                    </cell>
+                    <cell>
+                        <code>INTERNAL_SERVER_ERROR</code>
+                    </cell>
+                    <cell>
+                        <code>Internal server error</code>
+                    </cell>
+                </row>
+           </rows>
+        </table>
+    </section>
+    <section id="sandbox-data">
+        <title>Sandbox Data</title>
+        The sandbox version of this endpoint returns all of the test Employer References used by the sandbox.
+    </section>
+</endpoint>

@@ -1,0 +1,113 @@
+<endpoint>
+  <name>Fetch Marriage Allowance Status</name>
+  <description>This end point returns whether the individual currently has Marriage Allowance for the given tax year. If they have Marriage Allowance it will return their role in the relationship (either 'Transferor' or 'Recipient').</description>
+  <section id="resource">
+    <title>Resource</title>
+    <resource>GET /marriage-allowance/sa/{utr}/status?taxYear={taxYear}</resource>
+  </section>
+  <section id="path-parameters">
+    <title>Path Parameters</title>
+    <table>
+      <headings>
+        <cell>Name</cell>
+        <cell>Type</cell>
+        <cell>Example</cell>
+        <cell>Description</cell>
+      </headings>
+      <rows>
+        <row>
+          <cell><code>utr</code></cell>
+          <cell><code>String</code></cell>
+          <cell><code>2234567890</code></cell>
+          <cell>The 10 digit SA UTR for the individual.</cell>
+        </row>
+      </rows>
+    </table>
+  </section>
+  <section id="query-parameters">
+    <title>Query Parameters</title>
+    <table>
+      <headings>
+        <cell>Name</cell>
+        <cell>Type</cell>
+        <cell>Example</cell>
+        <cell>Description</cell>
+      </headings>
+      <rows>
+        <row>
+          <cell><code>taxYear</code></cell>
+          <cell><code>String</code></cell>
+          <cell><code>2014-15</code></cell>
+          <cell>The tax year for which the Marriage Allowance status is being retrieved, in the format CCYY-YY.</cell>
+        </row>
+      </rows>
+    </table>
+  </section>  
+  <section id="authorisation">
+    <title>Authorisation</title>
+    <authorisation>
+      <type>USER</type>
+      <scope>read:marriage-allowance</scope>
+    </authorisation>
+  </section>
+  <section id="content-types">
+    <title>Accepted Media Types</title>
+    <list>
+      <item>
+        <code>application/vnd.hmrc.1.0+json</code>
+      </item>
+    </list>
+  </section>
+  <section id="response">
+    <title>Response</title>
+    <httpStatus>200 (OK)</httpStatus>
+    <json><![CDATA[{
+    "status" : "Recipient",
+    "deceased": false
+}]]></json>
+    <table>
+      <headings>
+        <cell>Name</cell>
+        <cell>Type</cell>
+        <cell>Example</cell>
+        <cell>Description</cell>
+      </headings>
+      <rows>
+        <row>
+          <cell><code>status</code></cell>
+          <cell><code>String</code></cell>
+          <cell><code>Recipient</code></cell>
+          <cell>The role of tax-payer in Marriage Allowance.</cell>
+        </row>
+        <row>
+          <cell><code>deceased</code></cell>
+          <cell><code>Boolean</code></cell>
+          <cell><code>false</code></cell>
+          <cell>Whether the tax-payer is deceased or not.</cell>
+        </row>        
+      </rows>
+    </table>
+  </section>
+  <section id="error-scenarios">
+    <title>Error Scenarios</title>
+    <table>
+      <headings>
+        <cell>Error Scenario</cell>
+        <cell>HTTP Status</cell>
+        <cell>Code</cell>
+      </headings>
+      <rows>
+        <row>
+          <cell>Invalid UTR</cell>
+          <cell><code>400 (Bad Request)</code></cell>
+          <cell><code>SA_UTR_INVALID</code></cell>
+        </row>
+        <row>
+          <cell>Invalid Tax Year</cell>
+          <cell><code>400 (Bad Request)</code></cell>
+          <cell><code>TAX_YEAR_INVALID</code></cell>
+        </row>
+      </rows>
+    </table>
+  </section>
+</endpoint>

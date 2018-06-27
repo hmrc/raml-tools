@@ -1,0 +1,145 @@
+<endpoint>
+  <name>Check eligibility to apply for Marriage Allowance</name>
+  <description>This end point returns whether an individual’s partner is eligible to apply for Marriage Allowance for the given tax year.</description>
+  <section id="resource">
+    <title>Resource</title>
+    <resource>GET /marriage-allowance/sa/{utr}/eligibility?nino={nino}&amp;firstname={firstname}&amp;surname={surname}&amp;dateOfBirth={dateOfBirth}&amp;taxYear={taxYear}</resource>
+  </section>
+  <section id="path-parameters">
+    <title>Path Parameters</title>
+    <table>
+      <headings>
+        <cell>Name</cell>
+        <cell>Type</cell>
+        <cell>Example</cell>
+        <cell>Description</cell>
+      </headings>
+      <rows>
+        <row>
+          <cell><code>utr</code></cell>
+          <cell><code>String</code></cell>
+          <cell><code>2234567890</code></cell>
+          <cell>The 10 digit SA UTR for the individual.</cell>
+        </row>
+      </rows>
+    </table>
+  </section>  
+  <section id="query-parameters">
+    <title>Query Parameters</title>
+    <table>
+      <headings>
+        <cell>Name</cell>
+        <cell>Type</cell>
+        <cell>Example</cell>
+        <cell>Description</cell>
+      </headings>
+      <rows>
+        <row>
+          <cell><code>nino</code></cell>
+          <cell><code>String</code></cell>
+          <cell><code>AA000003D</code></cell>
+          <cell>Candidate's NINO</cell>
+        </row>
+        <row>
+          <cell><code>firstname</code></cell>
+          <cell><code>String</code></cell>
+          <cell><code>John</code></cell>
+          <cell>Candidate's first name</cell>
+        </row>
+        <row>
+          <cell><code>surname</code></cell>
+          <cell><code>String</code></cell>
+          <cell><code>Smith</code></cell>
+          <cell>Candidate's surname</cell>
+        </row>
+        <row>
+          <cell><code>dateOfBirth</code></cell>
+          <cell><code>String</code></cell>
+          <cell><code>1981-01-31</code></cell>
+          <cell>Candidate's date of birth in YYYY-MM-DD format</cell>
+        </row>
+        <row>
+          <cell><code>taxYear</code></cell>
+          <cell><code>String</code></cell>
+          <cell><code>2014-15</code></cell>
+          <cell>The tax year for which the Marriage Allowance eligibility is being retrieved, in the format CCYY-YY.</cell>
+        </row>                    
+      </rows>
+    </table>
+  </section>    
+  <section id="authorisation">
+    <title>Authorisation</title>
+    <authorisation>
+      <type>USER</type>
+      <scope>read:marriage-allowance</scope>
+    </authorisation>
+  </section>
+  <section id="content-types">
+    <title>Accepted Media Types</title>
+    <list>
+      <item>
+        <code>application/vnd.hmrc.1.0+json</code>
+      </item>
+    </list>
+  </section>
+  <section id="response">
+    <title>Response</title>
+    <httpStatus>200 (OK)</httpStatus>
+    <json><![CDATA[{
+	"eligible" : true
+}]]></json>
+    <table>
+      <headings>
+        <cell>Name</cell>
+        <cell>Type</cell>
+        <cell>Example</cell>
+        <cell>Description</cell>
+      </headings>
+      <rows>
+        <row>
+          <cell><code>eligible</code></cell>
+          <cell><code>Boolean</code></cell>
+          <cell><code>true</code></cell>
+          <cell>Whether the recipient is allowed to receive Marriage Allowance.</cell>
+        </row>
+      </rows>
+    </table>
+  </section>
+  <section id="error-scenarios">
+    <title>Error Scenarios</title>
+    <table>
+      <headings>
+        <cell>Error Scenario</cell>
+        <cell>HTTP Status</cell>
+        <cell>Code</cell>
+      </headings>
+      <rows>
+        <row>
+          <cell>Invalid UTR</cell>
+          <cell><code>400 (Bad Request)</code></cell>
+          <cell><code>SA_UTR_INVALID</code></cell>
+        </row>      
+        <row>
+          <cell>Invalid NINO</cell>
+          <cell><code>400 (Bad Request)</code></cell>
+          <cell><code>NINO_INVALID</code></cell>
+        </row>
+        <row>
+          <cell>Invalid Date of Birth</cell>
+          <cell><code>400 (Bad Request)</code></cell>
+          <cell><code>DOB_INVALID</code></cell>
+        </row>
+        <row>
+          <cell>Invalid Tax Year</cell>
+          <cell><code>400 (Bad Request)</code></cell>
+          <cell><code>TAX_YEAR_INVALID</code></cell>
+        </row>        
+        <row>
+          <cell>Unmatched Recipient</cell>
+          <cell><code>404 (Resource Not Found)</code></cell>
+          <cell><code>RECIPIENT_NOT_FOUND</code></cell>
+        </row>
+      </rows>
+    </table>
+  </section>
+</endpoint>

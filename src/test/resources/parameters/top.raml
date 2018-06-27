@@ -1,0 +1,19 @@
+#%RAML 1.0
+---
+title: HMRC Self Assessment
+version: Beta 1.0
+
+protocols: [ HTTPS ]
+baseUri: https://api.service.hmrc.gov.uk/
+resourceTypes:
+  collection: !include include.raml
+
+/the:
+  description: Test Example
+  type: collection
+  /{with-params}:
+    description: Test Example 2
+    type: collection
+    /test:
+      description: Test Example 3
+      type: collection

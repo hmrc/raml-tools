@@ -1,0 +1,54 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "definitions": {
+        "Period": {
+            "type": "object",
+            "properties": {
+                "startDate": {
+                    "type": "string"
+                },
+                "endDate": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "number"
+                },
+                "outstanding": {
+                    "type": "number"
+                },
+                "cleared": {
+                    "type": "number"
+                }
+            }
+        },
+        "Charge": {
+            "type": "object",
+            "properties": {
+                "chargeType": {
+                    "type": "string"
+                },
+                "mainType": {
+                    "type": "string"
+                },
+                "periods": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Period"
+                    }
+                }
+            }
+        }
+    },
+    "properties": {
+        "_links": {
+            "$ref": "types-schema.json#/definitions/SelfLink"
+        },
+        "charges": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Charge"
+            }
+        }
+    }
+}
+

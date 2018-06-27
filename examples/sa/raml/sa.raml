@@ -1,0 +1,213 @@
+#%RAML 1.0
+---
+title: HMRC Self Assessment
+version: Beta 1.0
+
+protocols: [ HTTPS ]
+baseUri: https://api.service.hmrc.gov.uk/
+
+documentation:
+ - title: Self Assessment
+   content: !include ../docs/sa_intro.md
+mediaType: application/hal+json
+
+uses:
+  typ: modules/data-types.raml
+  sec: modules/oauth2.raml
+
+securedBy: [sec.oauth_2_0: { scopes: [ read-self-assessment ] }]
+
+#types: !include modules/data-types.raml
+annotationTypes:
+  config: object
+
+resourceTypes:
+  navigation: !include modules/navigation.raml
+  collection: !include modules/collection.raml
+  member: !include modules/member.raml
+
+(config):
+  protocol: https
+
+/self-assessment/:
+  type: 
+    navigation:
+      displayName: Resolve Customer
+      description: Resolves a customer identifier from the provided Authorisation Bearer token
+      response-desc: A link to the customer accessing the API
+      response-example: !include ../samples/GET-self-assessment.json
+  /{utr}:
+    type: 
+      navigation:
+        displayName: Discover Tax Years
+        description: Provides links to the self assessment entry points for each tax year
+        response-desc: A set of links to each tax year for the customer
+        response-example: !include ../samples/GET-utr.json
+        uriParameters:
+          utr:
+            displayName: The Self Assessment UTR of the customer
+            type: string
+            description: See https://www.tax.service.gov.uk/information/help?helpcategory=security&helpid=UniqueTaxpayReference
+            example: "2234567890"
+  /{taxYear}:
+    displayName: Discover Tax Year
+    description: Provides links to the self assessment entry points for the specified tax year
+    uriParameters:
+      taxYear:
+        displayName: The tax year the data applies to
+        type: string
+        example: "2016-17"
+    get:
+      responses:
+        200:
+          description: A link to the customer accessing the API
+          body:
+            example: !include ../samples/GET-year.json
+    /self-employments:
+      description: !include https://raw.githubusercontent.com/aowss/json-schema/master/README.md
+      type:
+        collection:
+          enclosingResource: Customer
+          GET-example: !include ../samples/GET-self-employments.json
+          POST-example: !include ../samples/POST-self-employments.json
+      post:
+      /{seId}:
+          uriParameters:
+            seId:
+              displayName: The self-employment unique identifier
+              type: string
+              example: 5728b53c4800005100d2d32d
+              required: true
+          type:
+            member:
+              request-sample: !include ../samples/self-employments-request.json
+              response-sample: !include ../samples/self-employments-details.json
+              error-schema: !include ../schemas/rest.error.schema.json
+              error-sample: !include ../samples/403.json
+          /incomes:
+            type:
+              collection:
+                enclosingResource: Self Employment
+                GET-example: !include ../samples/GET-self-employment-incomes.json
+                POST-example: !include ../samples/POST-self-employment-incomes.json
+            get:
+              responses:
+                202:
+                  description: the <<enclosingResource>>'s <<resourcePathName>>
+                  body:
+                    example: <<GET-example>>
+            post:
+            /{incomeId}:
+              uriParameters:
+                incomeId:
+                  displayName: The income unique identifier
+                  type: string
+                  example: 5728b53c4800005100d2d32d
+                  required: true
+              type:
+                member:
+                  request-sample: !include ../samples/GET-self-employment-income.json
+                  response-sample: !include ../samples/POST-self-employment-incomes.json
+                  error-schema: !include ../schemas/rest.error.schema.json
+                  error-sample: !include ../samples/403.json
+          /expenses:
+            type:
+              collection:
+                enclosingResource: Self Employment
+                GET-example: !include ../samples/GET-self-employment-expenses.json
+                POST-example: !include ../samples/POST-self-employment-expenses.json
+            post:
+            /{expenseId}:
+              uriParameters:
+                expenseId:
+                  displayName: The expense unique identifier
+                  type: string
+                  example: 5728b53c4800005100d2d32d
+                  required: true
+              type:
+                member:
+                  request-sample: !include ../samples/GET-self-employment-expense.json
+                  response-sample: !include ../samples/POST-self-employment-expenses.json
+                  error-schema: !include ../schemas/rest.error.schema.json
+                  error-sample: !include ../samples/403.json
+          /goods-and-services-own-uses:
+            type:
+              collection:
+                enclosingResource: Self Employment
+                GET-example: !include ../samples/GET-self-employment-goods.json
+                POST-example: !include ../samples/POST-self-employment-goods.json
+            post:
+            /{goodId}:
+              uriParameters:
+                goodId:
+                  displayName: The good unique identifier
+                  type: string
+                  example: 5728b53c4800005100d2d32d
+                  required: true
+              type:
+                member:
+                  request-sample: !include ../samples/GET-self-employment-good.json
+                  response-sample: !include ../samples/POST-self-employment-goods.json
+                  error-schema: !include ../schemas/rest.error.schema.json
+                  error-sample: !include ../samples/403.json
+          /balancing-charges:
+            type:
+              collection:
+                enclosingResource: Self Employment
+                GET-example: !include ../samples/GET-self-employment-charges.json
+                POST-example: !include ../samples/POST-self-employment-charges.json
+            post:
+            /{chargeId}:
+              uriParameters:
+                chargeId:
+                  displayName: The charge unique identifier
+                  type: string
+                  example: 5728b53c4800005100d2d32d
+                  required: true
+              type:
+                member:
+                  request-sample: !include ../samples/GET-self-employment-charge.json
+                  response-sample: !include ../samples/POST-self-employment-charges.json
+                  error-schema: !include ../schemas/rest.error.schema.json
+                  error-sample: !include ../samples/403.json
+      /furnished-holiday-lettings:
+        get:
+        post:
+        /{sourceId}:
+          /incomes:
+          /expenses:
+          /private-use-adjustments:
+          /balancing-charges:
+            /{summaryId}:
+      /uk-properties:
+        get:
+        post:
+        /{sourceId}:
+          /incomes:
+          /expenses:
+          /taxes-paid:
+          /balancing-charges:
+          /private-use-adjustments:
+            /{summaryId}:
+      /employments:
+        get:
+        post:
+        /{sourceId}:
+          /incomes:
+          /benefits:
+          /expenses:
+          /uk-taxes-paid:
+            /{summaryId}:
+      /unearned-incomes:
+        get:
+        post:
+        /{sourceId}:
+          /savings:
+          /dividends:
+          /benefits:
+            /{summaryId}:
+    /liabilities:
+      get:
+      post:
+      /{liabilityId}:
+#  vim: set ts=2 sw=2 tw=0 et :
