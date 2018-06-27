@@ -1,0 +1,859 @@
+<!DOCTYPE HTML><html><head><title>HMRC Self Assessment API documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="generator" content="https://github.com/kevinrenskers/raml2html 2.4.0"><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css"><script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script><script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min.js"></script><script type="text/javascript">
+      $(document).ready(function() {
+        $('.page-header pre code, .top-resource-description pre code').each(function(i, block) {
+          hljs.highlightBlock(block);
+        });
+
+        $('[data-toggle]').click(function() {
+          var selector = $(this).data('target') + ' pre code';
+          $(selector).each(function(i, block) {
+            hljs.highlightBlock(block);
+          });
+        });
+
+        // open modal on hashes like #_action_get
+        $(window).bind('hashchange', function(e) {
+          var anchor_id = document.location.hash.substr(1); //strip #
+          var element = $('#' + anchor_id);
+
+          // do we have such element + is it a modal?  --> show it
+          if (element.length && element.hasClass('modal')) {
+            element.modal('show');
+          }
+        });
+
+        // execute hashchange on first page load
+        $(window).trigger('hashchange');
+
+        // remove url fragment on modal hide
+        $('.modal').on('hidden.bs.modal', function() {
+          try {
+            if (history && history.replaceState) {
+                history.replaceState({}, '', '#');
+            }
+          } catch(e) {}
+        });
+      });
+    </script><style>
+      .hljs {
+        background: transparent;
+      }
+      .parent {
+        color: #999;
+      }
+      .list-group-item > .badge {
+        float: none;
+        margin-right: 6px;
+      }
+      .panel-title > .methods {
+        float: right;
+      }
+      .badge {
+        border-radius: 0;
+        text-transform: uppercase;
+        width: 70px;
+        font-weight: normal;
+        color: #f3f3f6;
+        line-height: normal;
+      }
+      .badge_get {
+        background-color: #63a8e2;
+      }
+      .badge_post {
+        background-color: #6cbd7d;
+      }
+      .badge_put {
+        background-color: #22bac4;
+      }
+      .badge_delete {
+        background-color: #d26460;
+      }
+      .badge_patch {
+        background-color: #ccc444;
+      }
+      .list-group, .panel-group {
+        margin-bottom: 0;
+      }
+      .panel-group .panel+.panel-white {
+        margin-top: 0;
+      }
+      .panel-group .panel-white {
+        border-bottom: 1px solid #F5F5F5;
+        border-radius: 0;
+      }
+      .panel-white:last-child {
+        border-bottom-color: white;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+      .panel-white .panel-heading {
+        background: white;
+      }
+      .tab-pane ul {
+        padding-left: 2em;
+      }
+      .tab-pane h2 {
+        font-size: 1.2em;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #ddd;
+      }
+      .tab-pane h3 {
+        font-size: 1.1em;
+      }
+      .tab-content {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+      }
+      #sidebar {
+        margin-top: 30px;
+        padding-right: 5px;
+        overflow: auto;
+        height: 90%;
+      }
+      .top-resource-description {
+        border-bottom: 1px solid #ddd;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description {
+        border-bottom: 1px solid #fcfcfc;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description p:last-child {
+        margin: 0;
+      }
+      .list-group .badge {
+        float: left;
+      }
+      .method_description {
+        margin-left: 85px;
+      }
+      .method_description p:last-child {
+        margin: 0;
+      }
+      .list-group-item {
+        cursor: pointer;
+      }
+      .list-group-item:hover {
+        background-color: #f5f5f5;
+      }
+      .nav > .nav {
+        margin-left: 0.5em;
+      }
+      .nav > .nav .nav {
+        margin-left: 1em;
+      }
+    </style></head><body data-spy="scroll" data-target="#sidebar"><div class="container"><div class="row"><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#Self-Assessment">Self Assessment</a></li><ul class="nav nav-pills nav-stacked"><li><a href="#angular-2">Angular 2</a><ul class="nav nav-pills nav-stacked"><li><a href="#introduction">Introduction</a></li><li><a href="#prerequisites">Prerequisites</a></li><li><a href="#step-1">Step 1</a></li><li><a href="#dependencies">Dependencies</a></li><li><a href="#multi-directory">Multi Directory</a></li></ul></li><li><a href="#resources">Resources</a></li></ul><li><a href="#self_assessment_">Resolve Customer</a></li></ul></div></div><div class="col-md-9" role="main"><div class="page-header"><h1>HMRC Self Assessment API documentation <small>version Beta 1.0</small></h1><p>https://api.service.hmrc.gov.uk/</p><h3 id="Self-Assessment"><a href="#Self-Assessment">Self Assessment</a></h3><h1 id="angular-2">Angular 2</h1><h2 id="introduction">Introduction</h2><p>The new <a href="https://angular.io/">Angular site</a>.</p><p>As you can notice, this is not <a href="https://angularjs.org/">AngularJS</a> anymore : the framework is not a JavaScript framework anymore. You can write your application using <a href="http://www.typescriptlang.org/">TypeScript</a>, <a href="http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf">EcmaScript 5</a>, <a href="https://people.mozilla.org/~jorendorff/es6-draft.html">EcmaScript 6</a> or <a href="https://www.dartlang.org/">Dart</a>.</p><p>In this guide we will use <a href="http://www.typescriptlang.org/">TypeScript</a> since it is a statically typed language and it is the preferred language for <a href="https://angular.io/">Angular</a>. Another advantage of using <a href="http://www.typescriptlang.org/">TypeScript</a> is that type definitions are usually published in the <a href="http://definitelytyped.org/">DefinitelyTyped repository</a>.</p><h2 id="prerequisites">Prerequisites</h2><blockquote><p>Install <a href="https://nodejs.org/">Node.js</a></p></blockquote><p>The <a href="https://www.npmjs.com/">npm</a> package manager is bundled with <a href="https://nodejs.org/">Node.js</a>.</p><blockquote><p>Install <a href="https://www.npmjs.com/package/tsd">TSD</a></p></blockquote><p><a href="https://www.npmjs.com/package/tsd">TSD</a> is a package manager to search and install <a href="http://www.typescriptlang.org/">TypeScript</a> definition files directly from the <a href="http://definitelytyped.org/">DefinitelyTyped repository</a>.</p><pre><code>sudo npm install -g tsd
+</code></pre><blockquote><p>Install the <a href="http://www.typescriptlang.org/">TypeScript compiler</a></p></blockquote><p>Since the browser doesn&#39;t understand <a href="http://www.typescriptlang.org/">TypeScript</a> code, we need to run a compiler to translate your code to browser-compliant JavaScript.</p><pre><code>sudo npm install -g typescript
+</code></pre><h2 id="step-1">Step 1</h2><blockquote><p>Create a folder named <code>step-1</code>.</p></blockquote><pre><code>mkdir step-1
+</code></pre><p>From now on, all commands are run fromt the <code>step-1</code> directory unless otherwise mentioned.</p><blockquote><p>Create the html and <a href="http://www.typescriptlang.org/">TypeScript</a> file</p></blockquote><pre><code>touch app.ts index.html
+</code></pre><p>As you can see, <a href="http://www.typescriptlang.org/">TypeScript</a> files have a <code>ts</code> extension.</p><blockquote><p>Instruct the <a href="http://www.typescriptlang.org/">TypeScript compiler</a> to automatically convert the <code>ts</code> files to <a href="http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-262.pdf">EcmaScript 5</a> files</p></blockquote><pre><code>tsc --watch -m commonjs -t es5 --emitDecoratorMetadata app.ts
+</code></pre><p>This instructs the compiler to listen for any changes to the <code>app.ts</code> file and generate a new <code>app.js</code> file each time a change is made.</p><blockquote><p>Install Angular2 definitions</p></blockquote><pre><code>tsd query angular2 --action install
+</code></pre><h2 id="dependencies">Dependencies</h2><p>If a class depends on another class, the second class needs to be declared before the first one :</p><pre><code>class FriendsService {
+
+    names: Array&lt;string&gt;;
+
+    constructor() {
+        this.names = ["Alice", "Aarav", "Martín", "Shannon", "Ariana", "Kai"];
+    }
+
+}
+
+class DisplayComponent {
+
+    myName: string;
+    names: Array&lt;string&gt;;
+
+    constructor(friendsService: FriendsService) {
+        this.myName = "Alice";
+        this.names = friendsService.names;
+    }
+
+}
+</code></pre><p>If <code>FriendsService</code> is declared after <code>DisplayComponent</code>, you get an error !</p><h2 id="multi-directory">Multi Directory</h2><blockquote><p>Watch and convert</p></blockquote><pre><code>find . -name "*.ts" | xargs tsc --watch -m commonjs -t es5 --emitDecoratorMetadata
+</code></pre><h1 id="resources">Resources</h1><ol class="nav nav-pills nav-stacked"><li><a href="https://angular.io/docs/js/latest/quickstart.html">Angular&#39;s 5 MIN QUICKSTART</a></li></ol></div><div class="panel panel-default"><div class="panel-heading"><h3 id="self_assessment_" class="panel-title">Resolve Customer</h3></div><div class="panel-body"><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_self_assessment_"><span class="parent"></span>/self-assessment/</a> <span class="methods"><a href="#self_assessment__get" class="collapsed" data-toggle="collapse"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_self_assessment_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#self_assessment__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Resolves a customer identifier from the provided Authorisation Bearer token</p></div><div class="clearfix"></div></div></div></div></div><div class="panel-collapse collapse" id="self_assessment__get"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent"></span>/self-assessment/</h4></div><div class="panel-body"><div class="alert alert-info"><p>Resolves a customer identifier from the provided Authorisation Bearer token</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment__get_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>A link to the customer accessing the API</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Type</strong>:</p><ul></ul><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre></div><div class="tab-pane" id="self_assessment__get_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_self_assessment___utr_"><span class="parent">/self-assessment/</span>/{utr}</a> <span class="methods"><a href="#self_assessment___utr__get" class="collapsed" data-toggle="collapse"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_self_assessment___utr_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#self_assessment___utr__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Provides links to the self assessment entry points for each tax year</p></div><div class="clearfix"></div></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr__get"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment/</span>/{utr}</h4></div><div class="panel-body"><div class="alert alert-info"><p>Provides links to the self assessment entry points for each tax year</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr__get_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr__get_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr__get_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li></ul></div><div class="tab-pane" id="self_assessment___utr__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>A set of links to each tax year for the customer</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Type</strong>:</p><ul></ul><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre></div><div class="tab-pane" id="self_assessment___utr__get_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_self_assessment___utr___taxYear_"><span class="parent">/self-assessment//{utr}</span>/{taxYear}</a> <span class="methods"><a href="#self_assessment___utr___taxYear__get" class="collapsed" data-toggle="collapse"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_self_assessment___utr___taxYear_" class="panel-collapse collapse"><div class="panel-body"><div class="resource-description"><p>Provides links to the self assessment entry points for the specified tax year</p></div><div class="list-group"><div onclick="window.location.href = '#self_assessment___utr___taxYear__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"></div><div class="clearfix"></div></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__get"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}</span>/{taxYear}</h4></div><div class="panel-body"><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__get_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__get_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__get_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li></ul></div><div class="tab-pane" id="self_assessment___utr___taxYear__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>A link to the customer accessing the API</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Type</strong>:</p><ul></ul><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre></div><div class="tab-pane" id="self_assessment___utr___taxYear__get_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_self_assessment___utr___taxYear__self_employments"><span class="parent">/self-assessment//{utr}/{taxYear}</span>/self-employments</a> <span class="methods"><a href="#self_assessment___utr___taxYear__self_employments_post" class="collapsed" data-toggle="collapse"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#self_assessment___utr___taxYear__self_employments_get" class="collapsed" data-toggle="collapse"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_self_assessment___utr___taxYear__self_employments" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#self_assessment___utr___taxYear__self_employments_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Add a self-employment</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#self_assessment___utr___taxYear__self_employments_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Retrieve the Customer&#39;s self-employments</p></div><div class="clearfix"></div></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__self_employments_post"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}/{taxYear}</span>/self-employments</h4></div><div class="panel-body"><div class="alert alert-info"><p>Add a self-employment</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__self_employments_post_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__self_employments_post_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__self_employments_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__self_employments_post_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li></ul><h3>Headers</h3><ul><li><strong>Accept</strong>: <em>(string)</em><p>The content type of the response</p><p><strong>Example</strong>:</p><pre>application/vnd.hmrc.1.0+json</pre></li></ul><h3>Body</h3><p><strong>Media Type: application/json</strong></p><p><strong>Type</strong>:</p><ul></ul><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>The self-employment has been added</p><h3>Headers</h3><ul><li><strong>Location</strong>: <em>required (string)</em><p>The new self-employment&#39;s URL</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>the self-employment&#39;s representation format is invalid</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>the self-employment hasn&#39;t been created</p></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments_post_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__self_employments_get"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}/{taxYear}</span>/self-employments</h4></div><div class="panel-body"><div class="alert alert-info"><p>Retrieve the Customer&#39;s self-employments</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__self_employments_get_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__self_employments_get_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__self_employments_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__self_employments_get_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li></ul><h3>Headers</h3><ul><li><strong>Accept</strong>: <em>(string)</em><p>The content type of the response</p><p><strong>Example</strong>:</p><pre>application/vnd.hmrc.1.0+json</pre></li></ul></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the Customer&#39;s self-employments</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Type</strong>:</p><ul></ul><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>one or more of the identifier(s) in the URL is invalid</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>no self-employments found for the given identifier(s)</p></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments_get_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_self_assessment___utr___taxYear__self_employments__seId_"><span class="parent">/self-assessment//{utr}/{taxYear}/self-employments</span>/{seId}</a> <span class="methods"><a href="#self_assessment___utr___taxYear__self_employments__seId__get" class="collapsed" data-toggle="collapse"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#self_assessment___utr___taxYear__self_employments__seId__put" class="collapsed" data-toggle="collapse"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#self_assessment___utr___taxYear__self_employments__seId__delete" class="collapsed" data-toggle="collapse"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_self_assessment___utr___taxYear__self_employments__seId_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#self_assessment___utr___taxYear__self_employments__seId__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Retrieve the self-employment</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#self_assessment___utr___taxYear__self_employments__seId__put'" class="list-group-item"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Update the self-employment</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#self_assessment___utr___taxYear__self_employments__seId__delete'" class="list-group-item"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Delete the self-employment</p></div><div class="clearfix"></div></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__self_employments__seId__get"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}/{taxYear}/self-employments</span>/{seId}</h4></div><div class="panel-body"><div class="alert alert-info"><p>Retrieve the self-employment</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__self_employments__seId__get_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__get_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__self_employments__seId__get_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li><li><strong>The self-employment unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li></ul></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Type</strong>:</p><ul></ul><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>one or more of the identifier(s) in the URL is invalid</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>The provided Credentials are invalid</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>The User doesn&#39;t have access to this information</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>no self-employment found for the given identifier(s)</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__get_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__self_employments__seId__put"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}/{taxYear}/self-employments</span>/{seId}</h4></div><div class="panel-body"><div class="alert alert-info"><p>Update the self-employment</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__self_employments__seId__put_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__put_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__put_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__self_employments__seId__put_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li><li><strong>The self-employment unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li></ul><h3>Headers</h3><ul><li><strong>Content-Type</strong>: <em>(one of application/vnd.hmrc.1.0+json)</em><p>The content type of the request</p></li></ul><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Type</strong>:</p><ul></ul><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__put_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><p>The self-employments has been updated</p><h3>Headers</h3><ul><li><strong>Location</strong>: <em>required (string)</em><p>The updated self-employment&#39;s URL</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>the request format is invalid</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>The provided Credentials are invalid</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>The User doesn&#39;t have the right to create a self-employment</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>no self-employment found for the given identifier(s)</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__put_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__self_employments__seId__delete"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}/{taxYear}/self-employments</span>/{seId}</h4></div><div class="panel-body"><div class="alert alert-info"><p>Delete the self-employment</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__self_employments__seId__delete_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__delete_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__delete_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__self_employments__seId__delete_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li><li><strong>The self-employment unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li></ul></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><p>The self-employment has been deleted</p></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__delete_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_self_assessment___utr___taxYear__self_employments__seId__incomes"><span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}</span>/incomes</a> <span class="methods"><a href="#self_assessment___utr___taxYear__self_employments__seId__incomes_get" class="collapsed" data-toggle="collapse"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#self_assessment___utr___taxYear__self_employments__seId__incomes_post" class="collapsed" data-toggle="collapse"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_self_assessment___utr___taxYear__self_employments__seId__incomes" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#self_assessment___utr___taxYear__self_employments__seId__incomes_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Retrieve the Self Employment&#39;s incomes</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#self_assessment___utr___taxYear__self_employments__seId__incomes_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Add a income</p></div><div class="clearfix"></div></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__self_employments__seId__incomes_get"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}</span>/incomes</h4></div><div class="panel-body"><div class="alert alert-info"><p>Retrieve the Self Employment&#39;s incomes</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__self_employments__seId__incomes_get_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__incomes_get_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__incomes_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__self_employments__seId__incomes_get_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li><li><strong>The self-employment unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li></ul><h3>Headers</h3><ul><li><strong>Accept</strong>: <em>(string)</em><p>The content type of the response</p><p><strong>Example</strong>:</p><pre>application/vnd.hmrc.1.0+json</pre></li></ul></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__incomes_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the Self Employment&#39;s incomes</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Type</strong>:</p><ul></ul><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre><h2>HTTP status code <a href="http://httpstatus.es/202" target="_blank">202</a></h2><p>the &lt;<enclosingresource>&gt;&#39;s &lt;<resourcepathname>&gt;</resourcepathname></enclosingresource></p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Type</strong>:</p><ul></ul><p><strong>Example</strong>:</p><pre><code>&lt;&lt;GET-example&gt;&gt;</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>one or more of the identifier(s) in the URL is invalid</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>no incomes found for the given identifier(s)</p></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__incomes_get_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__self_employments__seId__incomes_post"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}</span>/incomes</h4></div><div class="panel-body"><div class="alert alert-info"><p>Add a income</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__self_employments__seId__incomes_post_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__incomes_post_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__incomes_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__self_employments__seId__incomes_post_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li><li><strong>The self-employment unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li></ul><h3>Headers</h3><ul><li><strong>Accept</strong>: <em>(string)</em><p>The content type of the response</p><p><strong>Example</strong>:</p><pre>application/vnd.hmrc.1.0+json</pre></li></ul><h3>Body</h3><p><strong>Media Type: application/json</strong></p><p><strong>Type</strong>:</p><ul></ul><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__incomes_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>The income has been added</p><h3>Headers</h3><ul><li><strong>Location</strong>: <em>required (string)</em><p>The new income&#39;s URL</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>the income&#39;s representation format is invalid</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>the income hasn&#39;t been created</p></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__incomes_post_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId_"><span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}/incomes</span>/{incomeId}</a> <span class="methods"><a href="#self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__get" class="collapsed" data-toggle="collapse"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__put" class="collapsed" data-toggle="collapse"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__delete" class="collapsed" data-toggle="collapse"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Retrieve the income</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__put'" class="list-group-item"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Update the income</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__delete'" class="list-group-item"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Delete the income</p></div><div class="clearfix"></div></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__get"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}/incomes</span>/{incomeId}</h4></div><div class="panel-body"><div class="alert alert-info"><p>Retrieve the income</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__get_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__get_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__get_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li><li><strong>The self-employment unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li><li><strong>The income unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li></ul></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Type</strong>:</p><ul></ul><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>one or more of the identifier(s) in the URL is invalid</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>The provided Credentials are invalid</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>The User doesn&#39;t have access to this information</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>no income found for the given identifier(s)</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__get_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__put"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}/incomes</span>/{incomeId}</h4></div><div class="panel-body"><div class="alert alert-info"><p>Update the income</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__put_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__put_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__put_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__put_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li><li><strong>The self-employment unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li><li><strong>The income unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li></ul><h3>Headers</h3><ul><li><strong>Content-Type</strong>: <em>(one of application/vnd.hmrc.1.0+json)</em><p>The content type of the request</p></li></ul><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Type</strong>:</p><ul></ul><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__put_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><p>The incomes has been updated</p><h3>Headers</h3><ul><li><strong>Location</strong>: <em>required (string)</em><p>The updated income&#39;s URL</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>the request format is invalid</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>The provided Credentials are invalid</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>The User doesn&#39;t have the right to create a income</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>no income found for the given identifier(s)</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__put_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__delete"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}/incomes</span>/{incomeId}</h4></div><div class="panel-body"><div class="alert alert-info"><p>Delete the income</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__delete_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__delete_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__delete_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__delete_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li><li><strong>The self-employment unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li><li><strong>The income unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li></ul></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><p>The income has been deleted</p></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__incomes__incomeId__delete_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_self_assessment___utr___taxYear__self_employments__seId__expenses"><span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}</span>/expenses</a> <span class="methods"><a href="#self_assessment___utr___taxYear__self_employments__seId__expenses_post" class="collapsed" data-toggle="collapse"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#self_assessment___utr___taxYear__self_employments__seId__expenses_get" class="collapsed" data-toggle="collapse"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_self_assessment___utr___taxYear__self_employments__seId__expenses" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#self_assessment___utr___taxYear__self_employments__seId__expenses_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Add a expense</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#self_assessment___utr___taxYear__self_employments__seId__expenses_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Retrieve the Self Employment&#39;s expenses</p></div><div class="clearfix"></div></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__self_employments__seId__expenses_post"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}</span>/expenses</h4></div><div class="panel-body"><div class="alert alert-info"><p>Add a expense</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__self_employments__seId__expenses_post_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__expenses_post_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__expenses_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__self_employments__seId__expenses_post_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li><li><strong>The self-employment unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li></ul><h3>Headers</h3><ul><li><strong>Accept</strong>: <em>(string)</em><p>The content type of the response</p><p><strong>Example</strong>:</p><pre>application/vnd.hmrc.1.0+json</pre></li></ul><h3>Body</h3><p><strong>Media Type: application/json</strong></p><p><strong>Type</strong>:</p><ul></ul><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__expenses_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>The expense has been added</p><h3>Headers</h3><ul><li><strong>Location</strong>: <em>required (string)</em><p>The new expense&#39;s URL</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>the expense&#39;s representation format is invalid</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>the expense hasn&#39;t been created</p></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__expenses_post_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__self_employments__seId__expenses_get"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}</span>/expenses</h4></div><div class="panel-body"><div class="alert alert-info"><p>Retrieve the Self Employment&#39;s expenses</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__self_employments__seId__expenses_get_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__expenses_get_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__expenses_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__self_employments__seId__expenses_get_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li><li><strong>The self-employment unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li></ul><h3>Headers</h3><ul><li><strong>Accept</strong>: <em>(string)</em><p>The content type of the response</p><p><strong>Example</strong>:</p><pre>application/vnd.hmrc.1.0+json</pre></li></ul></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__expenses_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the Self Employment&#39;s expenses</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Type</strong>:</p><ul></ul><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>one or more of the identifier(s) in the URL is invalid</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>no expenses found for the given identifier(s)</p></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__expenses_get_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId_"><span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}/expenses</span>/{expenseId}</a> <span class="methods"><a href="#self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__get" class="collapsed" data-toggle="collapse"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__put" class="collapsed" data-toggle="collapse"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__delete" class="collapsed" data-toggle="collapse"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Retrieve the expense</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__put'" class="list-group-item"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Update the expense</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__delete'" class="list-group-item"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Delete the expense</p></div><div class="clearfix"></div></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__get"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}/expenses</span>/{expenseId}</h4></div><div class="panel-body"><div class="alert alert-info"><p>Retrieve the expense</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__get_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__get_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__get_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li><li><strong>The self-employment unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li><li><strong>The expense unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li></ul></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Type</strong>:</p><ul></ul><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>one or more of the identifier(s) in the URL is invalid</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>The provided Credentials are invalid</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>The User doesn&#39;t have access to this information</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>no expense found for the given identifier(s)</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__get_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__put"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}/expenses</span>/{expenseId}</h4></div><div class="panel-body"><div class="alert alert-info"><p>Update the expense</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__put_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__put_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__put_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__put_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li><li><strong>The self-employment unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li><li><strong>The expense unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li></ul><h3>Headers</h3><ul><li><strong>Content-Type</strong>: <em>(one of application/vnd.hmrc.1.0+json)</em><p>The content type of the request</p></li></ul><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Type</strong>:</p><ul></ul><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__put_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><p>The expenses has been updated</p><h3>Headers</h3><ul><li><strong>Location</strong>: <em>required (string)</em><p>The updated expense&#39;s URL</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>the request format is invalid</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>The provided Credentials are invalid</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>The User doesn&#39;t have the right to create a expense</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>no expense found for the given identifier(s)</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__put_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__delete"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}/expenses</span>/{expenseId}</h4></div><div class="panel-body"><div class="alert alert-info"><p>Delete the expense</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__delete_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__delete_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__delete_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__delete_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li><li><strong>The self-employment unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li><li><strong>The expense unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li></ul></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><p>The expense has been deleted</p></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__expenses__expenseId__delete_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses"><span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}</span>/goods-and-services-own-uses</a> <span class="methods"><a href="#self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses_post" class="collapsed" data-toggle="collapse"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses_get" class="collapsed" data-toggle="collapse"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Add a goods-and-services-own-us</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Retrieve the Self Employment&#39;s goods-and-services-own-uses</p></div><div class="clearfix"></div></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses_post"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}</span>/goods-and-services-own-uses</h4></div><div class="panel-body"><div class="alert alert-info"><p>Add a goods-and-services-own-us</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses_post_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses_post_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses_post_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li><li><strong>The self-employment unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li></ul><h3>Headers</h3><ul><li><strong>Accept</strong>: <em>(string)</em><p>The content type of the response</p><p><strong>Example</strong>:</p><pre>application/vnd.hmrc.1.0+json</pre></li></ul><h3>Body</h3><p><strong>Media Type: application/json</strong></p><p><strong>Type</strong>:</p><ul></ul><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>The goods-and-services-own-us has been added</p><h3>Headers</h3><ul><li><strong>Location</strong>: <em>required (string)</em><p>The new goods-and-services-own-us&#39;s URL</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>the goods-and-services-own-us&#39;s representation format is invalid</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>the goods-and-services-own-us hasn&#39;t been created</p></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses_post_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses_get"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}</span>/goods-and-services-own-uses</h4></div><div class="panel-body"><div class="alert alert-info"><p>Retrieve the Self Employment&#39;s goods-and-services-own-uses</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses_get_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses_get_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses_get_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li><li><strong>The self-employment unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li></ul><h3>Headers</h3><ul><li><strong>Accept</strong>: <em>(string)</em><p>The content type of the response</p><p><strong>Example</strong>:</p><pre>application/vnd.hmrc.1.0+json</pre></li></ul></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the Self Employment&#39;s goods-and-services-own-uses</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Type</strong>:</p><ul></ul><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>one or more of the identifier(s) in the URL is invalid</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>no goods-and-services-own-uses found for the given identifier(s)</p></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses_get_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId_"><span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}/goods-and-services-own-uses</span>/{goodId}</a> <span class="methods"><a href="#self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__get" class="collapsed" data-toggle="collapse"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__put" class="collapsed" data-toggle="collapse"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__delete" class="collapsed" data-toggle="collapse"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Retrieve the goods-and-services-own-us</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__put'" class="list-group-item"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Update the goods-and-services-own-us</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__delete'" class="list-group-item"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Delete the goods-and-services-own-us</p></div><div class="clearfix"></div></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__get"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}/goods-and-services-own-uses</span>/{goodId}</h4></div><div class="panel-body"><div class="alert alert-info"><p>Retrieve the goods-and-services-own-us</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__get_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__get_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__get_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li><li><strong>The self-employment unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li><li><strong>The good unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li></ul></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Type</strong>:</p><ul></ul><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>one or more of the identifier(s) in the URL is invalid</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>The provided Credentials are invalid</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>The User doesn&#39;t have access to this information</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>no goods-and-services-own-us found for the given identifier(s)</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__get_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__put"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}/goods-and-services-own-uses</span>/{goodId}</h4></div><div class="panel-body"><div class="alert alert-info"><p>Update the goods-and-services-own-us</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__put_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__put_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__put_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__put_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li><li><strong>The self-employment unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li><li><strong>The good unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li></ul><h3>Headers</h3><ul><li><strong>Content-Type</strong>: <em>(one of application/vnd.hmrc.1.0+json)</em><p>The content type of the request</p></li></ul><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Type</strong>:</p><ul></ul><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__put_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><p>The goods-and-services-own-uses has been updated</p><h3>Headers</h3><ul><li><strong>Location</strong>: <em>required (string)</em><p>The updated goods-and-services-own-us&#39;s URL</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>the request format is invalid</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>The provided Credentials are invalid</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>The User doesn&#39;t have the right to create a goods-and-services-own-us</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>no goods-and-services-own-us found for the given identifier(s)</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__put_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__delete"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}/goods-and-services-own-uses</span>/{goodId}</h4></div><div class="panel-body"><div class="alert alert-info"><p>Delete the goods-and-services-own-us</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__delete_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__delete_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__delete_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__delete_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li><li><strong>The self-employment unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li><li><strong>The good unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li></ul></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><p>The goods-and-services-own-us has been deleted</p></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__goods_and_services_own_uses__goodId__delete_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_self_assessment___utr___taxYear__self_employments__seId__balancing_charges"><span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}</span>/balancing-charges</a> <span class="methods"><a href="#self_assessment___utr___taxYear__self_employments__seId__balancing_charges_post" class="collapsed" data-toggle="collapse"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#self_assessment___utr___taxYear__self_employments__seId__balancing_charges_get" class="collapsed" data-toggle="collapse"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_self_assessment___utr___taxYear__self_employments__seId__balancing_charges" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#self_assessment___utr___taxYear__self_employments__seId__balancing_charges_post'" class="list-group-item"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Add a balancing-charge</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#self_assessment___utr___taxYear__self_employments__seId__balancing_charges_get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Retrieve the Self Employment&#39;s balancing-charges</p></div><div class="clearfix"></div></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__self_employments__seId__balancing_charges_post"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_post">post <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}</span>/balancing-charges</h4></div><div class="panel-body"><div class="alert alert-info"><p>Add a balancing-charge</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__self_employments__seId__balancing_charges_post_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__balancing_charges_post_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__balancing_charges_post_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__self_employments__seId__balancing_charges_post_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li><li><strong>The self-employment unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li></ul><h3>Headers</h3><ul><li><strong>Accept</strong>: <em>(string)</em><p>The content type of the response</p><p><strong>Example</strong>:</p><pre>application/vnd.hmrc.1.0+json</pre></li></ul><h3>Body</h3><p><strong>Media Type: application/json</strong></p><p><strong>Type</strong>:</p><ul></ul><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__balancing_charges_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>The balancing-charge has been added</p><h3>Headers</h3><ul><li><strong>Location</strong>: <em>required (string)</em><p>The new balancing-charge&#39;s URL</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>the balancing-charge&#39;s representation format is invalid</p><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>the balancing-charge hasn&#39;t been created</p></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__balancing_charges_post_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__self_employments__seId__balancing_charges_get"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}</span>/balancing-charges</h4></div><div class="panel-body"><div class="alert alert-info"><p>Retrieve the Self Employment&#39;s balancing-charges</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__self_employments__seId__balancing_charges_get_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__balancing_charges_get_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__balancing_charges_get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__self_employments__seId__balancing_charges_get_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li><li><strong>The self-employment unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li></ul><h3>Headers</h3><ul><li><strong>Accept</strong>: <em>(string)</em><p>The content type of the response</p><p><strong>Example</strong>:</p><pre>application/vnd.hmrc.1.0+json</pre></li></ul></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__balancing_charges_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>the Self Employment&#39;s balancing-charges</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Type</strong>:</p><ul></ul><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>one or more of the identifier(s) in the URL is invalid</p><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>no balancing-charges found for the given identifier(s)</p></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__balancing_charges_get_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div></div><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId_"><span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}/balancing-charges</span>/{chargeId}</a> <span class="methods"><a href="#self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__get" class="collapsed" data-toggle="collapse"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__put" class="collapsed" data-toggle="collapse"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a> <a href="#self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__delete" class="collapsed" data-toggle="collapse"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span></a></span></h4></div><div id="panel_self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId_" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__get'" class="list-group-item"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Retrieve the balancing-charge</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__put'" class="list-group-item"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Update the balancing-charge</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__delete'" class="list-group-item"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span><div class="method_description"><p>Delete the balancing-charge</p></div><div class="clearfix"></div></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__get"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_get">get <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}/balancing-charges</span>/{chargeId}</h4></div><div class="panel-body"><div class="alert alert-info"><p>Retrieve the balancing-charge</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__get_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__get_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__get_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__get_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li><li><strong>The self-employment unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li><li><strong>The charge unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li></ul></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Type</strong>:</p><ul></ul><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>one or more of the identifier(s) in the URL is invalid</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>The provided Credentials are invalid</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>The User doesn&#39;t have access to this information</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>no balancing-charge found for the given identifier(s)</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__get_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__put"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_put">put <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}/balancing-charges</span>/{chargeId}</h4></div><div class="panel-body"><div class="alert alert-info"><p>Update the balancing-charge</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__put_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__put_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__put_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__put_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li><li><strong>The self-employment unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li><li><strong>The charge unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li></ul><h3>Headers</h3><ul><li><strong>Content-Type</strong>: <em>(one of application/vnd.hmrc.1.0+json)</em><p>The content type of the request</p></li></ul><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Type</strong>:</p><ul></ul><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__put_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><p>The balancing-charges has been updated</p><h3>Headers</h3><ul><li><strong>Location</strong>: <em>required (string)</em><p>The updated balancing-charge&#39;s URL</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>the request format is invalid</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/401" target="_blank">401</a></h2><p>The provided Credentials are invalid</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/403" target="_blank">403</a></h2><p>The User doesn&#39;t have the right to create a balancing-charge</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre><p><strong>Example</strong>:</p><pre><code>[object Object]</code></pre><h2>HTTP status code <a href="http://httpstatus.es/404" target="_blank">404</a></h2><p>no balancing-charge found for the given identifier(s)</p><h3>Body</h3><p><strong>Media Type: application/hal+json</strong></p><p><strong>Schema</strong>:</p><pre><code>{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Error Message",
+    "description": "The Standard Error Message format. This message must be provided if the status code is 403. In all other cases, it is optional",
+    "type": "object",
+    "properties": {
+        "message" : {
+            "type": "string",
+            "default": "Account is temporarily suspended"
+        },
+        "code" : {
+            "type": "string", 
+            "default": "ACCOUNT_SUSPENDEDSA-100201"
+        }
+    },
+    "required" : [ "message", "code" ]
+}
+</code></pre></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__put_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div><div class="panel-collapse collapse" id="self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__delete"><div class="panel-heading"><h4 class="panel-title"><span class="badge badge_delete">delete <span class="glyphicon glyphicon-lock" title="Authentication required"></span></span> <span class="parent">/self-assessment//{utr}/{taxYear}/self-employments/{seId}/balancing-charges</span>/{chargeId}</h4></div><div class="panel-body"><div class="alert alert-info"><p>Delete the balancing-charge</p></div><div class="alert alert-warning"><span class="glyphicon glyphicon-lock" title="Authentication required"></span> Secured by oauth_2_0<p>HMRC supports OAuth 2.0 for authenticating User-restricted API requests as explained in <a href="https://www.tax.service.gov.uk/api-documentation/docs/authorisation">https://www.tax.service.gov.uk/api-documentation/docs/authorisation</a></p></div><ul class="nav nav-tabs"><li class="active"><a href="#self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__delete_request" data-toggle="tab">Request</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__delete_response" data-toggle="tab">Response</a></li><li><a href="#self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__delete_securedby" data-toggle="tab">Security</a></li></ul><div class="tab-content"><div class="tab-pane active" id="self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__delete_request"><h3>URI Parameters</h3><ul><li><strong>The Self Assessment UTR of the customer</strong>: <em>required (string)</em><p>See <a href="https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference">https://www.tax.service.gov.uk/information/help?helpcategory=security&amp;helpid=UniqueTaxpayReference</a></p><p><strong>Example</strong>:</p><pre>2234567890</pre></li><li><strong>The tax year the data applies to</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>2016-17</pre></li><li><strong>The self-employment unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li><li><strong>The charge unique identifier</strong>: <em>required (string)</em><p><strong>Example</strong>:</p><pre>5728b53c4800005100d2d32d</pre></li></ul></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__delete_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><p>The balancing-charge has been deleted</p></div><div class="tab-pane" id="self_assessment___utr___taxYear__self_employments__seId__balancing_charges__chargeId__delete_securedby">Secured by oauth_2_0<h3>Headers</h3><ul><li><strong>Authorization</strong>: <em>required (string)</em><p>Used to send a valid OAuth 2 access token</p></li></ul><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2><h2>HTTP status code <a href="http://httpstatus.es/" target="_blank"></a></h2></div></div></div></div></div></div></div></div></div></div></div></body></html>

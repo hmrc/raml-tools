@@ -1,0 +1,93 @@
+#%RAML 1.0
+---
+
+title: Marriage Allowance
+version: 1.0
+protocols: [ HTTPS ]
+baseUri: https://api.service.hmrc.gov.uk/
+
+documentation:
+ - title: Overview
+   content: !include docs/overview.md
+ - title: Versioning
+   content: !include https://developer.service.hmrc.gov.uk/api-documentation/assets/common/docs/versioning.md
+ - title: Errors
+   content: !include https://developer.service.hmrc.gov.uk/api-documentation/assets/common/docs/errors.md
+
+mediaType: [ application/json, application/hal+json ]
+
+uses:
+  sec: https://developer.service.hmrc.gov.uk/api-documentation/assets/common/modules/securitySchemes.raml
+  headers: https://developer.service.hmrc.gov.uk/api-documentation/assets/common/modules/headers.raml
+  annotations: https://developer.service.hmrc.gov.uk/api-documentation/assets/common/modules/annotations.raml
+  types: https://developer.service.hmrc.gov.uk/api-documentation/assets/common/modules/types.raml
+
+/marriage-allowance:
+  /sa:
+    /{utr}:
+      uriParameters:
+        utr:
+          description: The 10 digit SA UTR for the individual.
+          type: string
+          example: "2234567890"
+      /status:
+        get:
+          displayName: Fetch marriage allowance status
+          description: This end point returns whether the individual currently has Marriage Allowance for the given tax year. If they have Marriage Allowance it will return their role in the relationship (either 'Transferor' or 'Recipient').
+          is: [headers.acceptHeader]
+          (annotations.scope): "read:marriage-allowance"
+          securedBy: [ sec.oauth_2_0: { scopes: [ "read:marriage-allowance" ] } ]
+          queryParameters:
+            taxYear:
+              description: The tax year for which the Marriage Allowance status is being retrieved, in the format CCYY-YY.
+              type: string
+              example: 2014-15
+              required: false
+          responses:
+            200:
+              body:
+                application/json:
+                  examples:
+                    example-1:
+                      value: !include examples/fetch-marriage-allowance-status-example-1.json
+      /eligibility:
+        get:
+          displayName: Check marriage allowance eligibility
+          description: This end point returns whether an individual’s partner is eligible to apply for Marriage Allowance for the given tax year.
+          is: [headers.acceptHeader]
+          (annotations.scope): "read:marriage-allowance"
+          securedBy: [ sec.oauth_2_0: { scopes: [ "read:marriage-allowance" ] } ]
+          queryParameters:
+            nino:
+              description: Candidate's NINO
+              type: string
+              example: AA000003D
+              required: false
+            firstname:
+              description: Candidate's first name
+              type: string
+              example: John
+              required: false
+            surname:
+              description: Candidate's surname
+              type: string
+              example: Smith
+              required: false
+            dateOfBirth:
+              description: Candidate's date of birth in YYYY-MM-DD format
+              type: string
+              example: 1981-01-31
+              required: false
+            taxYear:
+              description: The tax year for which the Marriage Allowance eligibility is being retrieved, in the format CCYY-YY.
+              type: string
+              example: 2014-15
+              required: false
+          responses:
+            200:
+              body:
+                application/json:
+                  examples:
+                    example-1:
+                      value: !include examples/check-marriage-allowance-eligibility-example-1.json
+

@@ -1,0 +1,50 @@
+{
+    "definitions": {
+        "Link": {
+            "properties": {
+                "href": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "SelfLink": {
+            "properties": {
+                "self": {
+                    "$ref": "#/definitions/Link"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object"
+        },
+        "EmpRefLinks": {
+            "patternProperties": {
+                "^self|[0-9]{3}\/[a-zA-Z]{2}[0-9]{7}[0-9a-zA-Z]$": {
+                    "$ref": "#/definitions/Link"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object"
+        },
+        "TaxYearLinks": {
+            "patternProperties": {
+                "^self|[0-9]{4}-[0-9]{2}$": {
+                    "$ref": "#/definitions/Link"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object"
+        },
+        "ServiceLinks": {
+            "patternProperties": {
+                "^self|charges|credits|payments|penalties|interest$": {
+                    "$ref": "#/definitions/Link"
+                }
+            },
+            "additionalProperties": false,
+            "type": "object"
+        }
+
+    },
+    "$schema": "http://json-schema.org/draft-04/schema"
+}

@@ -1,0 +1,611 @@
+<endpoint>
+    <name>Fetch Employer Payments</name>
+    <description>This endpoint fetches employer payments for the given tax year.</description>
+    <section id="resource">
+        <title>Resource</title>
+        <resource>GET /employers-paye/{empRef}/{taxYear}/payments</resource>
+    </section>
+    <section id="path-parameters">
+        <title>Path Parameters</title>
+        <table>
+            <headings>
+                <cell>Name</cell>
+                <cell>Type</cell>
+                <cell>Example</cell>
+                <cell>Description</cell>
+            </headings>
+            <rows>
+                <row>
+                    <cell>
+                        <code>empRef</code>
+                    </cell>
+                    <cell>
+                        <code>String</code>
+                    </cell>
+                    <cell>
+                        <code>125/LS00015</code>
+                    </cell>
+                    <cell>The Employer Reference consists of Tax Office Number and Tax Office Reference, in format (Tax
+                        Office Number)/(Tax Office Reference). Note that the empRef must be url encoded, for example,
+                        125%2FLS00015
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>taxYear</code>
+                    </cell>
+                    <cell>
+                        <code>String</code>
+                    </cell>
+                    <cell>
+                        <code>2014-15</code>
+                    </cell>
+                    <cell>The tax year for the payments being retrieved, in the format YYYY-YY. The supplied year values
+                        must be consecutive.
+                        For example. 2012-13 or 2014-15.
+                    </cell>
+                </row>
+            </rows>
+        </table>
+    </section>
+    <section id="authorisation">
+        <title>Authorisation</title>
+        <authorisation>
+            <type>USER</type>
+            <scope>read:employers-paye</scope>
+        </authorisation>
+    </section>
+    <section id="content-types">
+        <title>Accept Header</title>
+        <list>
+            <item>
+                <code>application/vnd.hmrc.1.0+json</code>
+            </item>
+        </list>
+    </section>
+    <section id="sample-response">
+        <title>Response</title>
+        <httpStatus>200 (OK)</httpStatus>
+        <json>
+            <![CDATA[
+{
+    "Payments": [{
+        "chargeType": "Payment",
+        "mainType": "Payment",
+        "periods": [{
+            "effectivePaymentDate": "2015-01-01",
+            "value": 9876.45,
+            "methodOfPayment": "Electronic"
+        }, {
+            "effectivePaymentDate": "2015-02-01",
+            "value": 123.45,
+            "methodOfPayment": "Electronic"
+        }]
+    }]
+}
+            ]]>
+        </json>
+        <httpStatus>200 (OK)</httpStatus>
+        <json><![CDATA[
+{
+  "payments": []
+}
+            ]]></json>
+    </section>
+    <section id="response-fields">
+        <title>Response Fields</title>
+        <table>
+            <headings>
+                <cell>Name</cell>
+                <cell>Type</cell>
+                <cell>Example</cell>
+                <cell>Description</cell>
+            </headings>
+            <rows>
+                <row>
+                    <cell>
+                        <code>chargeType</code>
+                    </cell>
+                    <cell>
+                        <code>String</code>
+                    </cell>
+                    <cell>
+                        <code>In Year RTI Charge-TAX</code>
+                    </cell>
+                    <cell>Charge category, mandatory field.</cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>mainType</code>
+                    </cell>
+                    <cell>
+                        <code>String</code>
+                    </cell>
+                    <cell>
+                        <code>FPS</code>
+                    </cell>
+                    <cell>Main payments category, mandatory field</cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>periods</code>
+                    </cell>
+                    <cell>
+                        <code>List</code>
+                    </cell>
+                    <cell>
+                        <code></code>
+                    </cell>
+                    <cell>List of available period data for a charge category, this may hold either a partial or full
+                        years worth of data
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>effectivePaymentDate</code>
+                    </cell>
+                    <cell>
+                        <code>String (ISO 8601 Date)</code>
+                    </cell>
+                    <cell>
+                        <code>Effective date for the current payment. The date is held in ISO 8601 format (YYYY-MM-DD)</code>
+                    </cell>
+                    <cell>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>value</code>
+                    </cell>
+                    <cell>
+                        <code>BigDecimal</code>
+                    </cell>
+                    <cell>
+                        <code>122.5</code>
+                    </cell>
+                    <cell>Total amount of payments for the given period. Can be positive, negative or zero.</cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>methodOfPayment</code>
+                    </cell>
+                    <cell>
+                        <code>String</code>
+                    </cell>
+                    <cell>
+                        <code>Electronic</code>
+                    </cell>
+                    <cell>Method of payment transfer.</cell>
+                </row>
+            </rows>
+        </table>
+    </section>
+    <section id="error-responses">
+        <title>Error Scenarios</title>
+        <table>
+            <headings>
+                <cell>Error Scenario</cell>
+                <cell>HTTP Status</cell>
+                <cell>Error Code</cell>
+                <cell>message</cell>
+            </headings>
+            <rows>
+                <row>
+                    <cell>
+                        <code>Bad Request</code>
+                    </cell>
+                    <cell>
+                        <code>400 (Bad Request)</code>
+                    </cell>
+                    <cell>
+                        <code>BAD_REQUEST</code>
+                    </cell>
+                    <cell>
+                        <code>Bad Request</code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>Unauthorized</code>
+                    </cell>
+                    <cell>
+                        <code>401 (UNAUTHORIZED)</code>
+                    </cell>
+                    <cell>
+                        <code>INVALID_CREDENTIALS</code>
+                    </cell>
+                    <cell>
+                        <code>Invalid Authentication information provided</code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>Unauthorized</code>
+                    </cell>
+                    <cell>
+                        <code>401 (UNAUTHORIZED)</code>
+                    </cell>
+                    <cell>
+                        <code>MISSING_CREDENTIALS</code>
+                    </cell>
+                    <cell>
+                        <code>Invalid Authentication information provided</code>
+                    </cell>
+                </row>
+                
+                
+                <row>
+                    <cell>
+                        <code>Resource Not Found</code>
+                    </cell>
+                    <cell>
+                        <code>404 (Not Found)</code>
+                    </cell>
+                    <cell>
+                        <code>NOT_FOUND</code>
+                    </cell>
+                    <cell>
+                        <code>Resource was not found</code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>Accept header invalid</code>
+                    </cell>
+                    <cell>
+                        <code>406 (Not Acceptable)</code>
+                    </cell>
+                    <cell>
+                        <code>ACCEPT_HEADER_INVALID</code>
+                    </cell>
+                    <cell>
+                        <code>The accept header is missing or invalid</code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>Internal Server Error</code>
+                    </cell>
+                    <cell>
+                        <code>500 (Internal Server Error)</code>
+                    </cell>
+                    <cell>
+                        <code>INTERNAL_SERVER_ERROR</code>
+                    </cell>
+                    <cell>
+                        <code>Internal server error</code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>EmpRef invalid</code>
+                    </cell>
+                    <cell>
+                        <code>400 (Bad Request)</code>
+                    </cell>
+                    <cell>
+                        <code>ERROR_EMP_REF_INVALID</code>
+                    </cell>
+                    <cell>
+                        <code>EmpRef requires two identifiers separated by a slash</code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>TaxYear invalid</code>
+                    </cell>
+                    <cell>
+                        <code>400 (Bad Request)</code>
+                    </cell>
+                    <cell>
+                        <code>ERROR_TAX_YEAR_INVALID</code>
+                    </cell>
+                    <cell>
+                        <code>Tax Year must be of the form yyyy-yy and the year values must be consecutive. ex. 2012-13</code>
+                    </cell>
+                </row>
+            </rows>
+        </table>
+    </section>
+    <section id="sandbox-data">
+        <title>Sandbox Data</title>
+        <table>
+            <headings>
+                <cell>SCENARIO</cell>
+                <cell>EMPREF</cell>
+                <cell>TAXYEAR</cell>
+                <cell>RESPONSE</cell>
+                <cell>CODE</cell>
+                <cell>MESSAGE</cell>
+            </headings>
+            <rows>
+                <row>
+                    <cell>
+                        <code>Valid Scenario</code>
+                    </cell>
+                    <cell>
+                        <code>123%2F1</code>
+                    </cell>
+                    <cell>
+                        <code>2014-15</code>
+                    </cell>
+                    <cell>
+                        <code>200 (OK)</code>
+                    </cell>
+                    <cell>
+                        <code>VALID JSON</code>
+                    </cell>
+                    <cell>
+                        <code>VALID JSON</code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>Valid Scenario</code>
+                    </cell>
+                    <cell>
+                        <code>125%2FLS00015</code>
+                    </cell>
+                    <cell>
+                        <code>2014-15</code>
+                    </cell>
+                    <cell>
+                        <code>200 (OK)</code>
+                    </cell>
+                    <cell>
+                        <code>VALID JSON</code>
+                    </cell>
+                    <cell>
+                        <code>VALID JSON</code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>EMPREF does not exist</code>
+                    </cell>
+                    <cell>
+                        <code>000%2F0</code>
+                    </cell>
+                    <cell>
+                        <code>2014-15</code>
+                    </cell>
+                    <cell>
+                        <code>404 (NOT FOUND)</code>
+                    </cell>
+                    <cell>
+                        <code>NOT_FOUND</code>
+                    </cell>
+                    <cell>
+                        <code>Resource was not found</code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>No data for valid EMPREF</code>
+                    </cell>
+                    <cell>
+                        <code>111%2F1</code>
+                    </cell>
+                    <cell>
+                        <code>2014-15</code>
+                    </cell>
+                    <cell>
+                        <code>200 (OK)</code>
+                    </cell>
+                    <cell>
+                        <code>VALID JSON</code>
+                    </cell>
+                    <cell>
+                        <code>VALID JSON
+                            {"payments":[]}
+                        </code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>No data for valid TAXYEAR</code>
+                    </cell>
+                    <cell>
+                        <code>222%2F2</code>
+                    </cell>
+                    <cell>
+                        <code>2014-15</code>
+                    </cell>
+                    <cell>
+                        <code>200 (OK)</code>
+                    </cell>
+                    <cell>
+                        <code>VALID JSON</code>
+                    </cell>
+                    <cell>
+                        <code>VALID JSON
+                            {"payments":[]}
+                        </code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>Invalid Credentials</code>
+                    </cell>
+                    <cell>
+                        <code>666%2F6</code>
+                    </cell>
+                    <cell>
+                        <code>2014-15</code>
+                    </cell>
+                    <cell>
+                        <code>401 (UNAUTHORIZED)</code>
+                    </cell>
+                    <cell>
+                        <code>INVALID_CREDENTIALS</code>
+                    </cell>
+                    <cell>
+                        <code>Invalid Authentication information provided</code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>Missing Header</code>
+                    </cell>
+                    <cell>
+                        <code>777%2F7</code>
+                    </cell>
+                    <cell>
+                        <code>2014-15</code>
+                    </cell>
+                    <cell>
+                        <code>406 (NOT ACCEPTABLE)</code>
+                    </cell>
+                    <cell>
+                        <code>ACCEPT_HEADER_INVALID</code>
+                    </cell>
+                    <cell>
+                        <code>The accept header is missing or invalid</code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>Invalid Header</code>
+                    </cell>
+                    <cell>
+                        <code>888%2F8</code>
+                    </cell>
+                    <cell>
+                        <code>2014-15</code>
+                    </cell>
+                    <cell>
+                        <code>406 (NOT ACCEPTABLE)</code>
+                    </cell>
+                    <cell>
+                        <code>ACCEPT_HEADER_INVALID</code>
+                    </cell>
+                    <cell>
+                        <code>The accept header is missing or invalid</code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>Missing EMPREF</code>
+                    </cell>
+                    <cell>
+                        <code>NOEMPREF</code>
+                    </cell>
+                    <cell>
+                        <code>2014-15</code>
+                    </cell>
+                    <cell>
+                        <code>404 (NOT_FOUND)</code>
+                    </cell>
+                    <cell>
+                        <code>NOT_FOUND</code>
+                    </cell>
+                    <cell>
+                        <code>Resource was not found</code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>Invalid EMPREF</code>
+                    </cell>
+                    <cell>
+                        <code>127%2F2FLS1000</code>
+                    </cell>
+                    <cell>
+                        <code>2014-15</code>
+                    </cell>
+                    <cell>
+                        <code>400 (BAD REQUEST)</code>
+                    </cell>
+                    <cell>
+                        <code>ERROR_EMP_REF_INVALID</code>
+                    </cell>
+                    <cell>
+                        <code>EmpRef requires two identifiers separated by a slash</code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>Missing TAXYEAR</code>
+                    </cell>
+                    <cell>
+                        <code>123%2F1</code>
+                    </cell>
+                    <cell>
+                        <code>NOTAXYEAR</code>
+                    </cell>
+                    <cell>
+                        <code>404 (NOT_FOUND)</code>
+                    </cell>
+                    <cell>
+                        <code>NOT_FOUND</code>
+                    </cell>
+                    <cell>
+                        <code>Resource was not found</code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>Invalid TAXYEAR</code>
+                    </cell>
+                    <cell>
+                        <code>123%2F1</code>
+                    </cell>
+                    <cell>
+                        <code>2014-14</code>
+                    </cell>
+                    <cell>
+                        <code>400 (BAD REQUEST)</code>
+                    </cell>
+                    <cell>
+                        <code>ERROR_TAX_YEAR_INVALID</code>
+                    </cell>
+                    <cell>
+                        <code>Tax Year must be of the form yyyy-yy and the year values must be
+                            consecutive. ex. 2012-13
+                        </code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>Internal server error</code>
+                    </cell>
+                    <cell>
+                        <code>999%2F9</code>
+                    </cell>
+                    <cell>
+                        <code>2014-15</code>
+                    </cell>
+                    <cell>
+                        <code>500 (INTERNAL SERVER ERROR)</code>
+                    </cell>
+                    <cell>
+                        <code>INTERNAL_SERVER_ERROR</code>
+                    </cell>
+                    <cell>
+                        <code>Internal server error</code>
+                    </cell>
+                </row>
+                <row>
+                    <cell>
+                        <code>Internal server error</code>
+                    </cell>
+                    <cell>
+                        <code>100%2F1</code>
+                    </cell>
+                    <cell>
+                        <code>2014-15</code>
+                    </cell>
+                    <cell>
+                        <code>503 (SERVICE UNAVAILABLE)</code>
+                    </cell>
+                    <cell>
+                        <code>SERVICE UNAVAILABLE</code>
+                    </cell>
+                    <cell>
+                        <code>Unable to connect to external service</code>
+                    </cell>
+                </row>
+            </rows>
+        </table>
+    </section>
+</endpoint>

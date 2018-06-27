@@ -1,0 +1,66 @@
+#%RAML 1.0 ResourceType
+
+get:
+  description: Retrieve the <<resourcePathName | !singularize>>
+  responses:
+    200:
+      body:
+        application/json:
+          example: <<response-sample>>
+    400:
+      description: one or more of the identifier(s) in the URL is invalid
+      body:
+        schema: <<error-schema>>
+    401:
+      description: The provided Credentials are invalid
+      body:
+        schema: <<error-schema>>
+    403:
+      description: The User doesn't have access to this information
+      body:
+        schema: <<error-schema>>
+        example: <<error-sample>>
+    404:
+      description: no <<resourcePathName | !singularize>> found for the given identifier(s)
+      body:
+        schema: <<error-schema>>
+put:
+  description: Update the <<resourcePathName | !singularize>>
+  headers:
+    Content-Type:
+      description: The content type of the request
+      type: string
+      required: false
+      enum: [ application/vnd.hmrc.1.0+json ]
+  responses:
+    204:
+      description: The <<resourcePathName>> has been updated
+      body:
+        example: <<request-sample>>
+      headers:
+        Location:
+          description: The updated <<resourcePathName | !singularize>>'s URL
+          type: string
+          required: true
+    400:
+      description: the request format is invalid
+      body:
+        schema: <<error-schema>>
+    401:
+      description: The provided Credentials are invalid
+      body:
+        schema: <<error-schema>>
+    403:
+      description: The User doesn't have the right to create a <<resourcePathName | !singularize>>
+      body:
+        schema: <<error-schema>>
+        example: <<error-sample>>
+    404:
+      description: no <<resourcePathName | !singularize>> found for the given identifier(s)
+      body:
+        schema: <<error-schema>>
+delete:
+  description: Delete the <<resourcePathName | !singularize>>
+  responses:
+    204:
+      description: The <<resourcePathName | !singularize>> has been deleted

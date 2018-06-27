@@ -1,0 +1,48 @@
+#%RAML 1.0
+
+title: Employers PAYE Service
+version: 1.0
+baseUri: http://employers-paye.service
+mediaType: application/json
+#securitySchemes:
+#      oauth_2_0: 
+#          type: OAuth 2.0
+#          settings:
+#              accessTokenUri: http://blah.com
+#              authorizationGrants: http://blah.com
+
+/:
+  description: !include markdown/emprefs_description.md
+  get:
+    responses:
+      200: 
+        body:
+          application/json:
+            type: !include schemas/empref-schema.json
+/{empRef}:
+  description: Tax Year Shenannigans
+  get:
+    description: Discover the Tax Years available for the specified *empRef*
+    responses:
+      200: 
+        body:
+          application/json:
+            type: !include schemas/taxyear-schema.json
+
+  /{taxYear}:
+    description: Tax Year stuff
+    get:
+      description: Get the stuff
+      responses:
+        200: 
+          body:
+            application/json:
+              type: !include schemas/services-schema.json
+
+    /charges:
+      get:
+        responses:
+          200: 
+            body:
+              application/json:
+                type: !include schemas/charges-schema.json

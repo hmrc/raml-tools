@@ -1,0 +1,5 @@
+{
+  "message" : "The customer is not eligible",
+  "code" : "CUST_OUT-1111",
+  "eligibilityDate" : "2019-02-03"
+}
