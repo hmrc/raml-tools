@@ -16,12 +16,33 @@
 
 package uk.gov.hmrc.ramltools.loaders
 
-import org.scalatest.{Matchers, WordSpec}
+import com.github.tomakehurst.wiremock.WireMockServer
+import com.github.tomakehurst.wiremock.client.WireMock
+import com.github.tomakehurst.wiremock.client.WireMock._
+import com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
+import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpec}
 import uk.gov.hmrc.ramltools.domain.{RamlNotFoundException, RamlParseException, RamlUnsupportedVersionException}
 
 import scala.util.Failure
 
-class RamlLoaderSpec extends WordSpec with Matchers {
+class RamlLoaderSpec extends WordSpec with Matchers with BeforeAndAfterAll {
+
+  private val stubPort = sys.env.getOrElse("WIREMOCK", "22745").toInt
+  private val stubHost = "localhost"
+  private val wireMockUrl = s"http://$stubHost:$stubPort"
+  private val wireMockServer = new WireMockServer(wireMockConfig().port(stubPort))
+
+  override def beforeAll(): Unit = {
+    wireMockServer.start()
+    WireMock.configureFor(stubHost, stubPort)
+  }
+
+  override def afterAll(): Unit = {
+    if (wireMockServer.isRunning) {
+      wireMockServer.stop()
+    }
+  }
+
   "failure to find the file" should {
     "result in a not found exception" in {
       new UrlRamlLoader().load("http://zzz-imnotreal-zzz/") match {
@@ -33,9 +54,21 @@ class RamlLoaderSpec extends WordSpec with Matchers {
 
   "Not RAML" should {
     "result in a parse exception" in {
-      new UrlRamlLoader().load("https://google.com") match {
-        case Failure(e: RamlParseException) => e.getMessage should include("Invalid header declaration <!doctype html><html")
-        case _ => throw new IllegalStateException("should not reach here")
+      stubFor(get(urlPathEqualTo("/application"))
+        .willReturn(
+          aResponse()
+            .withStatus(202)
+            .withBody("<!doctype html>" +
+              "<html>" +
+              "<head><title>Welcome</title></head>" +
+              "<body>Hello</body>" +
+              "</html>")))
+
+      new UrlRamlLoader().load(s"$wireMockUrl/application") match {
+        case Failure(e: RamlParseException) =>
+          e.getMessage should include("Invalid header declaration <!doctype html><html")
+        case _ =>
+          throw new IllegalStateException("should not reach here")
       }
     }
   }
@@ -97,4 +130,5 @@ class RamlLoaderSpec extends WordSpec with Matchers {
       underTest.rewriteUrl(url) shouldBe url
     }
   }
+
 }

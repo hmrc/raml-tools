@@ -26,10 +26,11 @@ object HmrcBuild extends Build {
       scalaVersion := "2.11.11",
       resolvers += Resolver.bintrayRepo("hmrc", "releases"),
       libraryDependencies ++= Seq(
+        "com.typesafe.play" %% "play-json" % "2.5.12",
         "org.raml" % "raml-parser-2" % "1.0.13",
         "org.pegdown" % "pegdown" % "1.6.0" % "test",
         "org.scalatest" %% "scalatest" % "3.0.5" % "test",
-        "com.typesafe.play" %% "play-json" % "2.5.12"
+        "com.github.tomakehurst" % "wiremock" % "2.8.0" % "test"
       ),
       excludeDependencies ++= Seq(
         SbtExclusionRule("com.google.code.findbugs", "annotations")
