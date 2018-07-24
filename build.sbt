@@ -1,0 +1,47 @@
+import sbtassembly.AssemblyKeys.assembly
+import sbtassembly.AssemblyPlugin
+
+lazy val appName = "raml-tools"
+lazy val appOrganization = "uk.gov.hmrc"
+
+// Coverage configuration
+lazy val scoverageSettings = Seq(
+  coverageExcludedPackages := "<empty>;com.kenshoo.play.metrics.*;.*definition.*;prod.*;testOnlyDoNotUseInAppConf.*;app.*;uk.gov.hmrc.BuildInfo",
+  coverageMinimum := 72,
+  coverageFailOnMinimum := false,
+  coverageHighlighting := true
+)
+
+lazy val library = Project(appName, file("."))
+  .enablePlugins(SbtAutoBuildPlugin, SbtGitVersioning)
+  .settings(
+    scoverageSettings,
+    scalaVersion := "2.11.11",
+    resolvers += Resolver.bintrayRepo("hmrc", "releases"),
+    libraryDependencies ++= Seq(
+      "com.typesafe.play" %% "play-json" % "2.5.12",
+      "org.raml" % "raml-parser-2" % "1.0.13",
+      "org.pegdown" % "pegdown" % "1.6.0" % "test",
+      "org.scalatest" %% "scalatest" % "3.0.5" % "test",
+      "com.github.tomakehurst" % "wiremock" % "2.8.0" % "test"
+    ),
+    excludeDependencies ++= Seq(
+      SbtExclusionRule("com.google.code.findbugs", "annotations")
+    ),
+    crossScalaVersions := Seq("2.11.11"),
+    assemblySettings,
+    addArtifact(artifact in(Compile, assembly), assembly)
+  )
+  .settings(AssemblyPlugin.assemblySettings: _*)
+  .settings(
+    organization := appOrganization
+  )
+
+def assemblySettings =
+  Seq(
+    mainClass in assembly := Some("uk.gov.hmrc.ramltools.Raml2Html"),
+    artifact in(Compile, assembly) := {
+      val art = (artifact in(Compile, assembly)).value
+      art.copy(`classifier` = Some("assembly"))
+    }
+  )
