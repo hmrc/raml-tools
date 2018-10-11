@@ -1,5 +1,6 @@
 import sbtassembly.AssemblyKeys.assembly
 import sbtassembly.AssemblyPlugin
+import uk.gov.hmrc.SbtArtifactory
 
 lazy val appName = "raml-tools"
 lazy val appOrganization = "uk.gov.hmrc"
@@ -13,10 +14,11 @@ lazy val scoverageSettings = Seq(
 )
 
 lazy val library = Project(appName, file("."))
-  .enablePlugins(SbtAutoBuildPlugin, SbtGitVersioning)
+  .enablePlugins(SbtAutoBuildPlugin, SbtGitVersioning, SbtArtifactory)
   .settings(
     scoverageSettings,
     scalaVersion := "2.11.11",
+    majorVersion := 1,
     resolvers += Resolver.bintrayRepo("hmrc", "releases"),
     libraryDependencies ++= Seq(
       "com.typesafe.play" %% "play-json" % "2.5.12",
