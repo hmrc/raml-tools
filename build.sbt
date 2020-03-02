@@ -12,26 +12,20 @@ lazy val scoverageSettings = Seq(
   coverageFailOnMinimum := false,
   coverageHighlighting := true
 )
-
 lazy val library = Project(appName, file("."))
   .enablePlugins(SbtAutoBuildPlugin, SbtGitVersioning, SbtArtifactory)
   .settings(
     scoverageSettings,
-    scalaVersion := "2.11.11",
+    scalaVersion := "2.12.10",
     majorVersion := 1,
     resolvers += Resolver.bintrayRepo("hmrc", "releases"),
     libraryDependencies ++= Seq(
-      "com.typesafe.play" %% "play-json" % "2.5.19",
+      "com.typesafe.play" %% "play-json" % "2.6.14",
       "org.raml" % "raml-parser-2" % "1.0.13",
       "org.pegdown" % "pegdown" % "1.6.0" % "test",
       "org.scalatest" %% "scalatest" % "3.0.5" % "test",
       "com.github.tomakehurst" % "wiremock" % "2.8.0" % "test"
     ),
-    excludeDependencies ++= Seq(
-      SbtExclusionRule("com.google.code.findbugs", "annotations")
-    ),
-    crossScalaVersions := Seq("2.11.11"),
-    assemblySettings,
     addArtifact(artifact in(Compile, assembly), assembly)
   )
   .settings(AssemblyPlugin.assemblySettings: _*)
@@ -39,11 +33,3 @@ lazy val library = Project(appName, file("."))
     organization := appOrganization
   )
 
-def assemblySettings =
-  Seq(
-    mainClass in assembly := Some("uk.gov.hmrc.ramltools.Raml2Html"),
-    artifact in(Compile, assembly) := {
-      val art = (artifact in(Compile, assembly)).value
-      art.copy(`classifier` = Some("assembly"))
-    }
-  )
