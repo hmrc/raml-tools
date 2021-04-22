@@ -18,7 +18,7 @@ package uk.gov.hmrc.ramltools
 
 import org.raml.v2.api.model.v10.resources.Resource
 
-import scala.collection.JavaConversions._
+import scala.collection.JavaConverters._
 import org.raml.v2.api.model.v10.api.Api
 
 object Implicits {
@@ -26,11 +26,11 @@ object Implicits {
   implicit class RichRAML(val x: Api) {
 
     def flattenedResources(): List[Resource] = {
-      flatten(x.resources().toList)
+      flatten(x.resources().asScala.toList)
     }
 
     private def flatten(resources: List[Resource], acc: List[Resource]=Nil): List[Resource] = resources match {
-      case head :: tail => flatten(head.resources.toList ++ tail, acc :+ head)
+      case head :: tail => flatten(head.resources.asScala.toList ++ tail, acc :+ head)
       case _ => acc
     }
 

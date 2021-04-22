@@ -23,7 +23,7 @@ import org.raml.v2.api.{RamlModelBuilder, RamlModelResult}
 import uk.gov.hmrc.ramltools._
 import uk.gov.hmrc.ramltools.domain.{RamlNotFoundException, RamlParseException, RamlUnsupportedVersionException}
 
-import scala.collection.JavaConversions._
+import scala.collection.JavaConverters._
 import scala.util.{Failure, Success, Try}
 
 trait RamlLoader {
@@ -34,7 +34,7 @@ trait RamlLoader {
   def load(resource: String): Try[RAML]
 
   protected def verify(result: RamlModelResult): Try[RAML] = {
-    result.getValidationResults.toSeq match {
+    result.getValidationResults.asScala.toSeq match {
       case Nil => Option(result.getApiV10).fold(unsupportedSpecVersion) { api => Success(api) }
       case errors =>
         val msg = errors.map(e => transformError(e.toString)).mkString("; ")
