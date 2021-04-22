@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,7 @@ import org.raml.v2.api.model.v10.methods.Method
 import org.raml.v2.api.model.v10.resources.Resource
 import uk.gov.hmrc.ramltools.Implicits.RichRAML
 import uk.gov.hmrc.ramltools.RAML
-
-import scala.collection.JavaConversions._
+import scala.collection.JavaConverters._
 import scala.util.matching.Regex
 
 case class QueryParam(name: String, required: Boolean)
@@ -35,7 +34,7 @@ object Endpoints {
   def apply(raml: RAML, context: Option[String]): Seq[Endpoint] = {
     for {
       endpoint <- raml.flattenedResources()
-      method <- endpoint.methods
+      method <- endpoint.methods.asScala.toList
     } yield {
       Endpoint(
         getUriPattern(context, endpoint),
@@ -50,7 +49,7 @@ object Endpoints {
   }
 
   private def getAuthType(method: Method): String = {
-    method.securedBy.toList.map(_.securityScheme.name) match {
+    method.securedBy.asScala.toList.map(_.securityScheme.name) match {
       case Seq() => "NONE"
       case "oauth_2_0" :: _ => "USER"
       case "x-application" :: _ => "APPLICATION"
@@ -58,7 +57,7 @@ object Endpoints {
   }
 
   private def getScope(method: Method): Option[String] = {
-    method.annotations.toList.filter(_.name.matches("\\((.*\\.)?scope\\)")).map(a =>
+    method.annotations.asScala.toList.filter(_.name.matches("\\((.*\\.)?scope\\)")).map(a =>
       a.structuredValue.value.toString
     ).headOption
   }
@@ -72,14 +71,14 @@ object Endpoints {
   }
 
   private def getThrottlingTier(method: Method): String = {
-    method.annotations.toList.filter(_.name.matches("\\((.*\\.)?throttlingTier\\)")) match {
+    method.annotations.asScala.toList.filter(_.name.matches("\\((.*\\.)?throttlingTier\\)")) match {
       case List(tier) => tier.structuredValue().value().toString
       case _ => "UNLIMITED"
     }
   }
 
   private def getQueryParams(method: Method): Option[Seq[QueryParam]] = {
-    val qps = method.queryParameters().toList.map(param => QueryParam(param.name(), param.required().booleanValue()))
+    val qps = method.queryParameters().asScala.toList.map(param => QueryParam(param.name(), param.required().booleanValue()))
 
     if (qps.isEmpty) None else Some(qps)
   }
