@@ -16,9 +16,8 @@ lazy val library = Project(appName, file("."))
   .enablePlugins(SbtAutoBuildPlugin, SbtGitVersioning, SbtArtifactory)
   .settings(
     scoverageSettings,
-    scalaVersion := "2.12.10",
+    scalaVersion := "2.12.12",
     majorVersion := 1,
-    resolvers += Resolver.bintrayRepo("hmrc", "releases"),
     libraryDependencies ++= Seq(
       "com.typesafe.play" %% "play-json" % "2.6.14",
       "org.raml" % "raml-parser-2" % "1.0.13",
