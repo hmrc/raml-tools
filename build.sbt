@@ -1,9 +1,4 @@
-import sbtassembly.AssemblyKeys.assembly
-import sbtassembly.AssemblyPlugin
-import uk.gov.hmrc.SbtArtifactory
-
 lazy val appName = "raml-tools"
-lazy val appOrganization = "uk.gov.hmrc"
 
 // Coverage configuration
 lazy val scoverageSettings = Seq(
@@ -13,22 +8,16 @@ lazy val scoverageSettings = Seq(
   coverageHighlighting := true
 )
 lazy val library = Project(appName, file("."))
-  .enablePlugins(SbtAutoBuildPlugin, SbtGitVersioning, SbtArtifactory)
+  .enablePlugins(SbtAutoBuildPlugin, SbtGitVersioning)
   .settings(
     scoverageSettings,
     scalaVersion := "2.12.12",
     majorVersion := 1,
     libraryDependencies ++= Seq(
-      "com.typesafe.play" %% "play-json" % "2.6.14",
-      "org.raml" % "raml-parser-2" % "1.0.13",
-      "org.pegdown" % "pegdown" % "1.6.0" % "test",
-      "org.scalatest" %% "scalatest" % "3.0.5" % "test",
-      "com.github.tomakehurst" % "wiremock" % "2.8.0" % "test"
-    ),
-    addArtifact(artifact in(Compile, assembly), assembly)
+      "com.typesafe.play"       %% "play-json"                  % "2.9.2",
+      "org.raml"                %  "raml-parser-2"              % "1.0.13",
+      "org.scalatest"           %% "scalatest"                  % "3.2.9"     % "test",
+      "com.github.tomakehurst"  %  "wiremock-jre8-standalone"   % "2.27.2"    % "test",
+      "com.vladsch.flexmark"    %  "flexmark-all"               % "0.35.10"   % "test"
+    )
   )
-  .settings(AssemblyPlugin.assemblySettings: _*)
-  .settings(
-    organization := appOrganization
-  )
-
