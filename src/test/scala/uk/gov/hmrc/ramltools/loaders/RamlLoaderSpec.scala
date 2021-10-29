@@ -20,14 +20,17 @@ import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock
 import com.github.tomakehurst.wiremock.client.WireMock._
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig
-import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpec}
 import uk.gov.hmrc.ramltools.domain.{RamlNotFoundException, RamlParseException, RamlUnsupportedVersionException}
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.BeforeAndAfterAll
 
 import scala.util.Failure
 
-class RamlLoaderSpec extends WordSpec with Matchers with BeforeAndAfterAll {
+class RamlLoaderSpec extends AnyWordSpec with Matchers with BeforeAndAfterAll {
 
   private val stubPort = sys.env.getOrElse("WIREMOCK", "22745").toInt
+  
   private val stubHost = "localhost"
   private val wireMockUrl = s"http://$stubHost:$stubPort"
   private val wireMockServer = new WireMockServer(wireMockConfig().port(stubPort))
