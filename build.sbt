@@ -21,4 +21,3 @@ lazy val library = Project(appName, file("."))
       "com.vladsch.flexmark"    %  "flexmark-all"               % "0.35.10"   % "test"
     )
   )
-
