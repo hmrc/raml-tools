@@ -17,10 +17,11 @@
 package uk.gov.hmrc.ramltools
 
 import org.raml.v2.api.model.v10.resources.Resource
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
+
 import uk.gov.hmrc.ramltools.Implicits._
 import uk.gov.hmrc.ramltools.loaders.ClasspathRamlLoader
-import org.scalatest.wordspec.AnyWordSpec
-import org.scalatest.matchers.should.Matchers
 
 class ImplicitsSpec extends AnyWordSpec with Matchers {
 

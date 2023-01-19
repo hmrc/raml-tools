@@ -16,12 +16,14 @@
 
 package uk.gov.hmrc.ramltools.domain
 
-import org.raml.v2.api.model.v10.methods.Method
-import org.raml.v2.api.model.v10.resources.Resource
-import uk.gov.hmrc.ramltools.Implicits.RichRAML
-import uk.gov.hmrc.ramltools.RAML
 import scala.collection.JavaConverters._
 import scala.util.matching.Regex
+
+import org.raml.v2.api.model.v10.methods.Method
+import org.raml.v2.api.model.v10.resources.Resource
+
+import uk.gov.hmrc.ramltools.Implicits.RichRAML
+import uk.gov.hmrc.ramltools.RAML
 
 case class QueryParam(name: String, required: Boolean)
 

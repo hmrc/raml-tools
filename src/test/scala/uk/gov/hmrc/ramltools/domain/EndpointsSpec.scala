@@ -16,14 +16,16 @@
 
 package uk.gov.hmrc.ramltools.domain
 
-import play.api.libs.json.{JsArray, JsValue, Json}
-import uk.gov.hmrc.ramltools.RAML
-import uk.gov.hmrc.ramltools.loaders.ClasspathRamlLoader
-
 import scala.io.Source
 import scala.util.Try
-import org.scalatest.wordspec.AnyWordSpec
+
 import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
+
+import play.api.libs.json.{JsArray, JsValue, Json}
+
+import uk.gov.hmrc.ramltools.RAML
+import uk.gov.hmrc.ramltools.loaders.ClasspathRamlLoader
 
 class EndpointsSpec extends AnyWordSpec with Matchers {
 

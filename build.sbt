@@ -6,6 +6,18 @@ lazy val appName = "raml-tools"
 
 Global / bloopAggregateSourceDependencies := true
 
+ThisBuild / scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.6.0"
+
+
+inThisBuild(
+  List(
+    scalaVersion := "2.12.15",
+    semanticdbEnabled := true,
+    semanticdbVersion := scalafixSemanticdb.revision
+  )
+)
+
+
 lazy val library = Project(appName, file("."))
   .settings(
     scalaVersion := "2.12.15",

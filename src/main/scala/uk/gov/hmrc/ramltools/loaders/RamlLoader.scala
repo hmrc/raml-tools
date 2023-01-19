@@ -17,14 +17,14 @@
 package uk.gov.hmrc.ramltools.loaders
 
 import java.io.{File, InputStream}
+import scala.collection.JavaConverters._
+import scala.util.{Failure, Success, Try}
 
 import org.raml.v2.api.loader._
 import org.raml.v2.api.{RamlModelBuilder, RamlModelResult}
+
 import uk.gov.hmrc.ramltools._
 import uk.gov.hmrc.ramltools.domain.{RamlNotFoundException, RamlParseException, RamlUnsupportedVersionException}
-
-import scala.collection.JavaConverters._
-import scala.util.{Failure, Success, Try}
 
 trait RamlLoader {
 

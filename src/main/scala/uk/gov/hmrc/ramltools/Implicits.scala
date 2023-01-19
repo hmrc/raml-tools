@@ -16,10 +16,10 @@
 
 package uk.gov.hmrc.ramltools
 
-import org.raml.v2.api.model.v10.resources.Resource
-
 import scala.collection.JavaConverters._
+
 import org.raml.v2.api.model.v10.api.Api
+import org.raml.v2.api.model.v10.resources.Resource
 
 object Implicits {
 
