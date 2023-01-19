@@ -29,9 +29,9 @@ object Implicits {
       flatten(x.resources().asScala.toList)
     }
 
-    private def flatten(resources: List[Resource], acc: List[Resource]=Nil): List[Resource] = resources match {
+    private def flatten(resources: List[Resource], acc: List[Resource] = Nil): List[Resource] = resources match {
       case head :: tail => flatten(head.resources.asScala.toList ++ tail, acc :+ head)
-      case _ => acc
+      case _            => acc
     }
 
   }

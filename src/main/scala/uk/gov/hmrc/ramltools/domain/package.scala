@@ -20,5 +20,5 @@ import play.api.libs.json._
 
 package object domain {
   implicit val queryParamFormat = Json.format[QueryParam]
-  implicit val endpointFormat = Json.format[Endpoint]
+  implicit val endpointFormat   = Json.format[Endpoint]
 }

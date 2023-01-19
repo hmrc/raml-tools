@@ -21,6 +21,7 @@ import java.io.{File, InputStream}
 import org.raml.v2.api.loader.ClassPathResourceLoader
 
 class AlternateClasspathResourceLoader(prefix: String = "") extends ClassPathResourceLoader {
+
   override def fetchResource(resourceName: String): InputStream = {
     val path: String = new File(prefix, resourceName).getPath.substring(1)
     super.fetchResource(path)

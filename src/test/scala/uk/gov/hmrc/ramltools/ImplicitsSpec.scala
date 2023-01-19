@@ -24,18 +24,18 @@ import org.scalatest.matchers.should.Matchers
 
 class ImplicitsSpec extends AnyWordSpec with Matchers {
 
-   "Monkey patching of RAML" should {
-     "just work" in {
-       val raml = new ClasspathRamlLoader().load("good_raml/nested-good.raml").get
+  "Monkey patching of RAML" should {
+    "just work" in {
+      val raml = new ClasspathRamlLoader().load("good_raml/nested-good.raml").get
 
-       val resources: Seq[Resource] = raml.flattenedResources()
+      val resources: Seq[Resource] = raml.flattenedResources()
 
-       resources.size shouldBe 3
+      resources.size shouldBe 3
 
-       resources.map(_.resourcePath()) should contain("/{empRef}")
-       resources.map(_.resourcePath()) should contain("/{empRef}/{taxYear}")
-       resources.map(_.resourcePath()) should contain("/{empRef}/{taxYear}/charges")
-     }
+      resources.map(_.resourcePath()) should contain("/{empRef}")
+      resources.map(_.resourcePath()) should contain("/{empRef}/{taxYear}")
+      resources.map(_.resourcePath()) should contain("/{empRef}/{taxYear}/charges")
+    }
 
     "work with more complex resources" in {
       val raml = new ClasspathRamlLoader().load("good_raml/complex-good.raml").get
@@ -44,7 +44,8 @@ class ImplicitsSpec extends AnyWordSpec with Matchers {
 
       resources.size shouldBe 16
 
-      resources shouldBe List("/{empRef}",
+      resources shouldBe List(
+        "/{empRef}",
         "/{empRef}/{taxYear}",
         "/{empRef}/{taxYear}/charges",
         "/{empRef}/{other_thing}",
@@ -59,7 +60,8 @@ class ImplicitsSpec extends AnyWordSpec with Matchers {
         "/docs/to_read/later/meh",
         "/docs/archive",
         "/docs/archive/2014",
-        "/docs/archive/2015")
+        "/docs/archive/2015"
+      )
     }
   }
 }

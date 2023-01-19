@@ -28,14 +28,14 @@ import scala.util.{Failure, Success, Try}
 
 trait RamlLoader {
 
-  private val RamlDoesNotExist = "Raml does not exist at:"
+  private val RamlDoesNotExist                  = "Raml does not exist at:"
   private val unsupportedSpecVersion: Try[RAML] = Failure(RamlUnsupportedVersionException("Only RAML1.0 is supported"))
 
   def load(resource: String): Try[RAML]
 
   protected def verify(result: RamlModelResult): Try[RAML] = {
     result.getValidationResults.asScala.toSeq match {
-      case Nil => Option(result.getApiV10).fold(unsupportedSpecVersion) { api => Success(api) }
+      case Nil    => Option(result.getApiV10).fold(unsupportedSpecVersion) { api => Success(api) }
       case errors =>
         val msg = errors.map(e => transformError(e.toString)).mkString("; ")
         if (msg.contains(RamlDoesNotExist)) Failure(RamlNotFoundException(msg))
@@ -47,6 +47,7 @@ trait RamlLoader {
 }
 
 class ClasspathRamlLoader extends RamlLoader {
+
   override def load(classpath: String): Try[RAML] = {
     val builder = new RamlModelBuilder(new CompositeResourceLoader(
       new ClassPathResourceLoader(),
@@ -58,24 +59,27 @@ class ClasspathRamlLoader extends RamlLoader {
 }
 
 class FileRamlLoader extends RamlLoader {
+
   override def load(filepath: String): Try[RAML] = {
-    val file = new File(filepath)
+    val file     = new File(filepath)
     val ramlRoot = file.getParentFile
     val filename = file.getName
-    val builder = new RamlModelBuilder(new FileResourceLoader(ramlRoot))
+    val builder  = new RamlModelBuilder(new FileResourceLoader(ramlRoot))
     verify(builder.buildApi(filename))
   }
 }
 
 class StringRamlLoader extends RamlLoader {
+
   override def load(content: String): Try[RAML] = {
     val builder = new RamlModelBuilder()
-    val api = builder.buildApi(content, "")
+    val api     = builder.buildApi(content, "")
     verify(api)
   }
 }
 
 class UrlRamlLoader extends RamlLoader {
+
   override def load(url: String): Try[RAML] = {
     val builder = new RamlModelBuilder(new UrlResourceLoader())
     verify(builder.buildApi(url))
@@ -83,11 +87,12 @@ class UrlRamlLoader extends RamlLoader {
 }
 
 class ComprehensiveClasspathRamlLoader extends RamlLoader {
+
   override def load(resource: String): Try[RAML] = {
-    val file = new File(resource)
+    val file     = new File(resource)
     val ramlRoot = file.getParentFile
     val filename = file.getName
-    val builder = new RamlModelBuilder(new CompositeResourceLoader(
+    val builder  = new RamlModelBuilder(new CompositeResourceLoader(
       new FileResourceLoader(ramlRoot),
       new UrlResourceLoader(),
       new ClassPathResourceLoader(),
@@ -108,6 +113,7 @@ class UrlRewritingRamlLoader(urlRewriter: UrlRewriter) extends RamlLoader {
 }
 
 class UrlRewritingResourceLoader(urlRewriter: UrlRewriter) extends UrlResourceLoader {
+
   override def fetchResource(resourceName: String, callback: ResourceUriCallback): InputStream = {
     super.fetchResource(urlRewriter.rewriteUrl(resourceName), callback)
   }

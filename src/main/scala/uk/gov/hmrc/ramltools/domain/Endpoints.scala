@@ -25,16 +25,22 @@ import scala.util.matching.Regex
 
 case class QueryParam(name: String, required: Boolean)
 
-case class Endpoint(uriPattern: String, endpointName: String, method: String,
-                    authType: String, throttlingTier: String, scope: Option[String],
-                    queryParameters: Option[Seq[QueryParam]])
+case class Endpoint(
+    uriPattern: String,
+    endpointName: String,
+    method: String,
+    authType: String,
+    throttlingTier: String,
+    scope: Option[String],
+    queryParameters: Option[Seq[QueryParam]]
+  )
 
 object Endpoints {
 
   def apply(raml: RAML, context: Option[String]): Seq[Endpoint] = {
     for {
       endpoint <- raml.flattenedResources()
-      method <- endpoint.methods.asScala.toList
+      method   <- endpoint.methods.asScala.toList
     } yield {
       Endpoint(
         getUriPattern(context, endpoint),
@@ -50,8 +56,8 @@ object Endpoints {
 
   private def getAuthType(method: Method): String = {
     method.securedBy.asScala.toList.map(_.securityScheme.name) match {
-      case Seq() => "NONE"
-      case "oauth_2_0" :: _ => "USER"
+      case Seq()                => "NONE"
+      case "oauth_2_0" :: _     => "USER"
       case "x-application" :: _ => "APPLICATION"
     }
   }
@@ -73,7 +79,7 @@ object Endpoints {
   private def getThrottlingTier(method: Method): String = {
     method.annotations.asScala.toList.filter(_.name.matches("\\((.*\\.)?throttlingTier\\)")) match {
       case List(tier) => tier.structuredValue().value().toString
-      case _ => "UNLIMITED"
+      case _          => "UNLIMITED"
     }
   }
 

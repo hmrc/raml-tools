@@ -16,6 +16,6 @@
 
 package uk.gov.hmrc.ramltools.domain
 
-case class RamlParseException(msg: String) extends RuntimeException(msg)
-case class RamlNotFoundException(msg: String) extends RuntimeException(msg)
+case class RamlParseException(msg: String)              extends RuntimeException(msg)
+case class RamlNotFoundException(msg: String)           extends RuntimeException(msg)
 case class RamlUnsupportedVersionException(msg: String) extends RuntimeException(msg)
