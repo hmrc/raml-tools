@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,10 @@
 
 package uk.gov.hmrc.ramltools
 
-import org.raml.v2.api.model.v10.resources.Resource
-
 import scala.collection.JavaConverters._
+
 import org.raml.v2.api.model.v10.api.Api
+import org.raml.v2.api.model.v10.resources.Resource
 
 object Implicits {
 
@@ -29,9 +29,9 @@ object Implicits {
       flatten(x.resources().asScala.toList)
     }
 
-    private def flatten(resources: List[Resource], acc: List[Resource]=Nil): List[Resource] = resources match {
+    private def flatten(resources: List[Resource], acc: List[Resource] = Nil): List[Resource] = resources match {
       case head :: tail => flatten(head.resources.asScala.toList ++ tail, acc :+ head)
-      case _ => acc
+      case _            => acc
     }
 
   }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import java.io.{File, InputStream}
 import org.raml.v2.api.loader.ClassPathResourceLoader
 
 class AlternateClasspathResourceLoader(prefix: String = "") extends ClassPathResourceLoader {
+
   override def fetchResource(resourceName: String): InputStream = {
     val path: String = new File(prefix, resourceName).getPath.substring(1)
     super.fetchResource(path)
