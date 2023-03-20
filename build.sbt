@@ -8,10 +8,10 @@ Global / bloopAggregateSourceDependencies := true
 
 ThisBuild / scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.6.0"
 
+scalaVersion := "2.13.8"
 
 inThisBuild(
   List(
-    scalaVersion := "2.12.15",
     semanticdbEnabled := true,
     semanticdbVersion := scalafixSemanticdb.revision
   )
@@ -20,7 +20,6 @@ inThisBuild(
 
 lazy val library = Project(appName, file("."))
   .settings(
-    scalaVersion := "2.12.15",
     majorVersion := 1,
     libraryDependencies ++= LibraryDependencies()
   )
