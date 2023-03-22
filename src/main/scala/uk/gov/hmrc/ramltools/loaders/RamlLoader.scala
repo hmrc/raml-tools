@@ -17,7 +17,7 @@
 package uk.gov.hmrc.ramltools.loaders
 
 import java.io.{File, InputStream}
-import scala.jdk.CollectionConverters._
+import scala.collection.JavaConverters._
 import scala.util.{Failure, Success, Try}
 
 import org.raml.v2.api.loader._
