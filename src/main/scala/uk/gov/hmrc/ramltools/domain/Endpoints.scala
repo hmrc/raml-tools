@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.ramltools.domain
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import scala.util.matching.Regex
 
 import org.raml.v2.api.model.v10.methods.Method

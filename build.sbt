@@ -3,28 +3,28 @@ import sbt.Keys._
 import bloop.integrations.sbt.BloopDefaults
 
 lazy val appName = "raml-tools"
-lazy val scala212 = "2.12.15"
-lazy val scala213 = "2.13.8"
-lazy val supportedScalaVersions = List(scala212, scala213)
+lazy val scala213 = "2.13.12"
 
 Global / bloopAggregateSourceDependencies := true
+Global / bloopExportJarClassifiers := Some(Set("sources"))
 
-ThisBuild / scalafixDependencies += "com.github.liancheng" %% "organize-imports" % "0.6.0"
+commands ++= Seq(
+  Command.command("run-all-tests") { state => "test" :: state },
 
-scalaVersion := scala213
+  Command.command("clean-and-test") { state => "clean" :: "compile" :: "run-all-tests" :: state },
 
-inThisBuild(
-  List(
-    semanticdbEnabled := true,
-    semanticdbVersion := scalafixSemanticdb.revision
-  )
+  // Coverage does not need compile !
+  Command.command("pre-commit") { state => "clean" :: "scalafmtAll" :: "scalafixAll" :: "coverage" :: "run-all-tests" :: "coverageOff" :: "coverageAggregate" :: state }
 )
+
+scalaVersion := "2.13.12"
+
+ThisBuild / libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always
+ThisBuild / semanticdbEnabled := true
+ThisBuild / semanticdbVersion := scalafixSemanticdb.revision
 
 
 lazy val library = Project(appName, file("."))
-  .settings(
-    crossScalaVersions := supportedScalaVersions,
-  )
   .settings(
     majorVersion := 1,
     libraryDependencies ++= LibraryDependencies()
@@ -33,7 +33,6 @@ lazy val library = Project(appName, file("."))
     ScoverageSettings()
   )
   .settings(
-    inConfig(Test)(BloopDefaults.configSettings),
     Test / testOptions += Tests.Argument(TestFrameworks.ScalaTest, "-eT"),
     Test / unmanagedSourceDirectories ++= Seq(baseDirectory.value / "src" / "test"),
   )
