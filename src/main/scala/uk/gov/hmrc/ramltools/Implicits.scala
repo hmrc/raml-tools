@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.ramltools
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 import org.raml.v2.api.model.v10.api.Api
 import org.raml.v2.api.model.v10.resources.Resource
