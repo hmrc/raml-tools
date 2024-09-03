@@ -3,7 +3,6 @@ import sbt.Keys._
 import bloop.integrations.sbt.BloopDefaults
 
 lazy val appName = "raml-tools"
-lazy val scala213 = "2.13.12"
 
 Global / bloopAggregateSourceDependencies := true
 Global / bloopExportJarClassifiers := Some(Set("sources"))
